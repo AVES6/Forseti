@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Wire Room</title>
+<meta name="description" content="Independent world news briefing: conflicts, money and politics across Europe, the Americas, Asia & Middle East and Africa, in seven languages.">
+<meta property="og:title" content="The Wire Room">
+<meta property="og:description" content="Independent world news briefing in seven languages, updated several times a day.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0f3b28">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f3b28'/%3E%3Ctext x='32' y='44' font-family='Arial Narrow,Arial' font-weight='800' font-size='30' text-anchor='middle' fill='%23f1f7f3'%3EWR%3C/text%3E%3C/svg%3E">
+<meta name="copyright" content="© 2026 The Wire Room / AVES6. All rights reserved.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&family=Noto+Serif+SC:wght@400;600&display=swap">
+<style>
+/* Layout: wire-desk — dark masthead with region row + desk row, briefing board with period dial, dispatch feeds per desk; owner-only Control Room */
+:root{
+  --paper:#ffffff; --card:#ffffff; --tint:#f3f7f4; --ink:#14201a; --muted:#56655c; --rule:#d9e2dc;
+  --mast:#0f3b28; --mast-fg:#f1f7f3;
+  --accent:#1d6b45; --war:#b3263a; --money:#8a6200; --power:#6a43a8;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0f1612; --card:#151f19; --tint:#1a261f; --ink:#e3ebe6; --muted:#9db0a4; --rule:#26352c; --mast:#0a2318; --mast-fg:#e3ebe6;
+  --accent:#6fcf97; --war:#ff7a85; --money:#e3b850; --power:#b9a0f2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0f1612; --card:#151f19; --tint:#1a261f; --ink:#e3ebe6; --muted:#9db0a4; --rule:#26352c; --mast:#0a2318; --mast-fg:#e3ebe6;
+  --accent:#6fcf97; --war:#ff7a85; --money:#e3b850; --power:#b9a0f2; color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}
+:root:lang(ar){--body:"Noto Naskh Arabic","Source Serif 4",serif;--display:"Noto Naskh Arabic","Arial",sans-serif}
+:root:lang(zh){--body:"Noto Serif SC","Source Serif 4",serif;--display:"Noto Serif SC","Arial",sans-serif}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--mast)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--mast);color:var(--mast-fg)}
+.bar{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap;padding-block:12px 6px}
+.brand{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:.02em;text-transform:uppercase;line-height:1;margin-right:auto;cursor:pointer;background:none;border:0;color:inherit;padding:0;text-align:left}
+.brand small{display:block;font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.06em;opacity:.75;margin-top:5px;text-transform:none}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{font:600 12.5px var(--mono);border:1px solid color-mix(in srgb,var(--mast-fg) 35%,transparent);background:none;color:inherit;padding:7px 11px;border-radius:4px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.btn:hover{background:color-mix(in srgb,var(--mast-fg) 10%,transparent)}
+.btn.on,.lang button[aria-pressed="true"]{background:var(--mast-fg);color:var(--mast)}
+.btn svg{width:14px;height:14px}
+.btn.spin svg{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.sel{font:600 12.5px var(--mono);background:var(--mast);color:var(--mast-fg);border:1px solid color-mix(in srgb,var(--mast-fg) 35%,transparent);border-radius:4px;padding:6px 8px;cursor:pointer}
+.lang{display:flex;border:1px solid color-mix(in srgb,var(--mast-fg) 35%,transparent);border-radius:4px;overflow:hidden}
+.lang button{background:none;border:0;color:inherit;font:600 12.5px var(--mono);padding:7px 11px;cursor:pointer}
+nav.row{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.regions{border-bottom:1px solid color-mix(in srgb,var(--mast-fg) 18%,transparent)}
+nav.regions button{background:none;border:0;color:color-mix(in srgb,var(--mast-fg) 65%,transparent);font:600 12.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:9px 12px;cursor:pointer;white-space:nowrap;border-radius:4px 4px 0 0}
+nav.regions button[aria-selected="true"]{color:var(--mast);background:var(--mast-fg)}
+nav.desks button{background:none;border:0;color:color-mix(in srgb,var(--mast-fg) 70%,transparent);font:700 17px var(--display);letter-spacing:.06em;text-transform:uppercase;padding:10px 14px 12px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav.desks button[aria-selected="true"]{color:var(--mast-fg);border-bottom-color:var(--tab,var(--accent))}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+main{padding-block:28px 40px;min-height:60vh}
+.stamp{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+h1,h2,h3{text-wrap:balance}
+.deskhead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:22px}
+.deskhead .eyebrow{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.deskhead h1{font-family:var(--display);font-weight:800;font-size:clamp(38px,6vw,60px);line-height:.95;margin:4px 0 0;text-transform:uppercase}
+.deskhead p{margin:6px 0 0;color:var(--muted);max-width:62ch;font-size:16px}
+.dial{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.dial button{font:600 13px var(--mono);border:1px solid var(--rule);background:var(--card);color:var(--ink);padding:8px 12px;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:7px}
+.dial button[aria-pressed="true"]{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--war);display:inline-block;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.dot,.btn.spin svg{animation:none}}
+.ticker{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:6px;overflow:hidden;margin-bottom:22px}
+.ticker div{background:var(--card);padding:11px 14px;min-width:0}
+.ticker .k{font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ticker .v{font:600 21px var(--mono);font-variant-numeric:tabular-nums;margin-top:2px}
+.ticker .d{font:12px var(--mono);color:var(--muted)}
+.up{color:var(--money)!important} .down{color:var(--war)!important}
+.lead{background:var(--tint);border:1px solid var(--rule);border-inline-start:4px solid var(--c,var(--accent));border-radius:6px;padding:22px 24px;margin-bottom:24px}
+.kicker{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--c,var(--accent));display:flex;gap:10px;flex-wrap:wrap}
+.kicker .m{color:var(--muted);font-weight:400}
+.lead h2{font-weight:600;font-size:clamp(22px,3vw,30px);line-height:1.2;margin:8px 0}
+.lead p{margin:0 0 8px;max-width:72ch}
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+@media (max-width:860px){.board{grid-template-columns:1fr}}
+.col{min-width:0;border-top:4px solid var(--c);padding-top:12px}
+.col h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:24px;letter-spacing:.04em;margin:0 0 10px;color:var(--c)}
+.col ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.col li{padding-block:12px;border-bottom:1px solid var(--rule)}
+.col li:first-child{padding-top:0}
+.col li:last-child{border-bottom:0}
+.col li .when{font:12px var(--mono);color:var(--muted)}
+.col li b{display:block;font-weight:600;line-height:1.3;margin:2px 0 3px}
+.col li span.sum{font-size:15.5px;color:var(--muted)}
+.col .empty{color:var(--muted);font-style:italic;font-size:15.5px}
+.c-war{--c:var(--war)} .c-money{--c:var(--money)} .c-power{--c:var(--power)}
+.section{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:30px 0 12px;display:flex;align-items:center;gap:10px}
+.section::after{content:"";flex:1;height:1px;background:var(--rule)}
+.section:first-of-type{margin-top:0}
+.feed{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.feed{grid-template-columns:1fr}}
+article.story{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:18px 20px;min-width:0;display:flex;flex-direction:column;gap:6px}
+article.story.top{grid-column:1/-1;border-inline-start:4px solid var(--c)}
+article.story.top h2{font-size:clamp(22px,2.6vw,28px)}
+article.story h2{font-size:20px;line-height:1.25;margin:0;font-weight:600}
+article.story p{margin:0;font-size:16px}
+.src{margin-top:auto;padding-top:6px;font:12px var(--mono);color:var(--muted)}
+.src a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
+.src a:hover{border-bottom-color:var(--accent)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--paper);font:13px var(--mono);padding:10px 16px;border-radius:6px;z-index:20;max-width:calc(100vw - 32px)}
+footer{border-top:1px solid var(--rule);padding-block:20px 40px;color:var(--muted);font-size:14px}
+footer p{max-width:80ch;margin:0 0 8px}
+footer .copy{font:12px var(--mono);letter-spacing:.03em;margin-top:14px}
+.loading{color:var(--muted);font:14px var(--mono);padding-block:40px}
+/* control room */
+.cr-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:22px}
+@media (max-width:860px){.cr-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stat{background:var(--tint);border:1px solid var(--rule);border-radius:6px;padding:14px 16px;min-width:0}
+.stat .k{font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font:600 34px var(--mono);font-variant-numeric:tabular-nums;line-height:1.1;margin-top:4px}
+.stat .d{font:12px var(--mono);color:var(--muted)}
+.live-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--money);margin-right:6px;vertical-align:middle}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:18px 20px;margin-bottom:18px;min-width:0}
+.panel h3{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:22px;margin:0 0 12px}
+.bars{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:6px;align-items:end;height:150px;border-bottom:1px solid var(--rule)}
+.bars div{background:var(--accent);border-radius:3px 3px 0 0;min-height:2px;position:relative}
+.bars div span{position:absolute;top:-18px;left:0;right:0;text-align:center;font:11px var(--mono);color:var(--muted)}
+.barlbl{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:6px;font:10.5px var(--mono);color:var(--muted);text-align:center;margin-top:5px}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.chip{font:600 11px var(--mono);padding:2px 7px;border-radius:999px;border:1px solid var(--rule);color:var(--muted)}
+.note{font-size:14.5px;color:var(--muted);max-width:78ch}
+.peers{display:flex;flex-wrap:wrap;gap:8px}
+.peer{font:13px var(--mono);border:1px solid var(--rule);border-radius:999px;padding:4px 10px}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="bar">
+      <button class="brand" id="home">The Wire Room<small id="stamp">Loading edition…</small></button>
+      <div class="tools">
+        <button class="btn" id="refresh" title="Load the latest edition"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg><span id="refreshLbl">Refresh</span></button>
+        <button class="btn" id="crBtn" hidden>Control Room</button>
+        <button class="btn" id="themeBtn" aria-label="Day or night theme"><svg id="themeIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></svg><span id="themeLbl"></span></button>
+        <label class="vh" for="langSel" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Language</label>
+        <select class="sel" id="langSel">
+          <option value="en">English</option><option value="ru">Русский</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="es">Español</option><option value="zh">中文</option><option value="ar">العربية</option>
+        </select>
+      </div>
+      </div>
+    </div>
+    <nav class="row regions" role="tablist" id="regions" aria-label="Region"></nav>
+    <nav class="row desks" role="tablist" id="desks" aria-label="Section"></nav>
+  </div>
+</header>
+
+<main class="wrap" id="main"><div class="loading">Loading the latest edition…</div></main>
+<footer class="wrap" id="foot"></footer>
+
+<script>
+const UI={
+ en:{updated:"Updated",refresh:"Refresh",refreshing:"Checking…",latest:"You have the latest edition.",newer:"New edition loaded.",fail:"Couldn't reach the newsroom. Check your connection and try again.",
+   regions:{worldwide:"Worldwide",eu:"Europe",am:"Americas",as:"Asia & Middle East",af:"Africa"},
+   desks:{brief:"Briefing",war:"Conflicts",money:"Money",power:"Politics"},
+   heads:{brief:"The biggest stories in each section, condensed. Choose a time window.",war:"Wars, strikes and flashpoints.",money:"Markets, central banks, deals, and who got caught cooking the books.",power:"Elections, governments, and the people who run them."},
+   periods:{live:"Live",yday:"Yesterday",week:"This Week",month:"This Month",six:"6 Months",year:"This Year"},
+   lead:"Lead story",empty:"No major stories in this window.",src:"Source",top:"Top story",
+   sec:{week:"This week",month:"Earlier this month",older:"Earlier this year"},
+   foot:["The Wire Room is compiled by Claude from the outlets credited on every story, with Bloomberg, the Financial Times, The Wall Street Journal and The Washington Post preferred where they report a story. Ukraine coverage also draws on Strana.ua. Summaries are written for this site; follow the source link for the original reporting.","New editions are published several times a day. Press Refresh to load the latest."],
+   cr:{title:"Control Room",sub:"Audience and publishing status. Only you can see this page.",online:"Online now",unique:"Unique visitors",visits:"Total visits",today:"Visits today",daily:"Visits, last 14 days",recent:"Recent visitors",who:"Visitor",n:"Visits",first:"First seen",last:"Last seen",you:"you",guest:"guest",member:"member",edition:"Current edition",schedule:"Automatic updates",schedTxt:"A scheduled task collects fresh news and publishes a new edition at 07:00, 12:00, 17:00 and 21:00 Paris time. Open viewers switch to it automatically.",note:"Counts include everyone who opens the site while signed in to Claude. People who open a public link without signing in can read the site but are not counted, because the platform gives this page no way to record them.",none:"No visits recorded yet.",nobodyOnline:"Only you right now.",noData:"Visitor data is unavailable in this view. Open the site from claude.ai while signed in."}},
+ ru:{updated:"Обновлено",refresh:"Обновить",refreshing:"Проверяю…",latest:"У вас самый свежий выпуск.",newer:"Загружен новый выпуск.",fail:"Не удалось связаться с редакцией. Проверьте подключение и попробуйте ещё раз.",
+   regions:{worldwide:"Весь мир",eu:"Европа",am:"Америки",as:"Азия и Ближний Восток",af:"Африка"},
+   desks:{brief:"Сводка",war:"Конфликты",money:"Финансы",power:"Политика"},
+   heads:{brief:"Главное по каждому разделу в сжатом виде. Выберите период.",war:"Войны, удары и горячие точки.",money:"Рынки, центробанки, сделки и те, кого поймали на махинациях.",power:"Выборы, правительства и люди, которые ими руководят."},
+   periods:{live:"Онлайн",yday:"Вчера",week:"Неделя",month:"Месяц",six:"6 месяцев",year:"Год"},
+   lead:"Главная новость",empty:"Крупных новостей за этот период нет.",src:"Источник",top:"Главное",
+   sec:{week:"Эта неделя",month:"Ранее в этом месяце",older:"Ранее в этом году"},
+   foot:["The Wire Room собирает Claude по материалам изданий, указанных у каждой новости; в приоритете Bloomberg, Financial Times, The Wall Street Journal и The Washington Post, если они освещают тему. По Украине используется также «Страна». Пересказы написаны для этого сайта; оригинал — по ссылке на источник.","Новые выпуски выходят несколько раз в день. Нажмите «Обновить», чтобы загрузить последний."],
+   cr:{title:"Control Room",sub:"Аудитория и статус публикации. Эту страницу видите только вы.",online:"Сейчас на сайте",unique:"Уникальные посетители",visits:"Всего визитов",today:"Визитов сегодня",daily:"Визиты за 14 дней",recent:"Последние посетители",who:"Посетитель",n:"Визиты",first:"Впервые",last:"Последний раз",you:"вы",guest:"гость",member:"участник",edition:"Текущий выпуск",schedule:"Автообновление",schedTxt:"Запланированная задача собирает свежие новости и публикует новый выпуск в 07:00, 12:00, 17:00 и 21:00 по Парижу. Открытые страницы переключаются на него сами.",note:"Учитываются все, кто открывает сайт, войдя в Claude. Тех, кто открывает публичную ссылку без входа, сайт показывает, но не считает: платформа не даёт странице их записывать.",none:"Визитов пока нет.",nobodyOnline:"Сейчас только вы.",noData:"Данные о посетителях недоступны в этом окне. Откройте сайт на claude.ai, войдя в аккаунт."}}
+};
+
+const UI_MORE={
+ fr:{updated:"Mis à jour",refresh:"Actualiser",refreshing:"Vérification…",latest:"Vous avez la dernière édition.",newer:"Nouvelle édition chargée.",fail:"Impossible de joindre la rédaction. Vérifiez votre connexion et réessayez.",day:"Jour",night:"Nuit",
+  regions:{worldwide:"Monde",eu:"Europe",am:"Amériques",as:"Asie et Moyen-Orient",af:"Afrique"},desks:{brief:"Synthèse",war:"Conflits",money:"Finance",power:"Politique"},
+  heads:{brief:"Les plus grandes informations de chaque rubrique, en bref. Choisissez une période.",war:"Guerres, frappes et points chauds.",money:"Marchés, banques centrales, transactions et fraudes mises au jour.",power:"Élections, gouvernements et ceux qui les dirigent."},
+  periods:{live:"En direct",yday:"Hier",week:"Cette semaine",month:"Ce mois",six:"6 mois",year:"Cette année"},lead:"À la une",empty:"Pas d'information majeure sur cette période.",src:"Source",top:"À la une",
+  sec:{week:"Cette semaine",month:"Plus tôt ce mois-ci",older:"Plus tôt cette année"},
+  foot:["The Wire Room est compilé par Claude à partir des médias cités pour chaque article, en privilégiant Bloomberg, le Financial Times, le Wall Street Journal et le Washington Post. L'Ukraine s'appuie aussi sur Strana.ua. Les résumés sont rédigés pour ce site ; suivez le lien pour l'article original.","De nouvelles éditions paraissent plusieurs fois par jour. Appuyez sur Actualiser pour charger la dernière."]},
+ de:{updated:"Aktualisiert",refresh:"Aktualisieren",refreshing:"Prüfe…",latest:"Sie haben die neueste Ausgabe.",newer:"Neue Ausgabe geladen.",fail:"Redaktion nicht erreichbar. Prüfen Sie die Verbindung und versuchen Sie es erneut.",day:"Tag",night:"Nacht",
+  regions:{worldwide:"Weltweit",eu:"Europa",am:"Amerika",as:"Asien & Nahost",af:"Afrika"},desks:{brief:"Überblick",war:"Konflikte",money:"Finanzen",power:"Politik"},
+  heads:{brief:"Die wichtigsten Meldungen jeder Rubrik, kompakt. Zeitraum wählen.",war:"Kriege, Angriffe und Krisenherde.",money:"Märkte, Notenbanken, Deals und aufgeflogene Betrügereien.",power:"Wahlen, Regierungen und die Menschen an der Spitze."},
+  periods:{live:"Live",yday:"Gestern",week:"Diese Woche",month:"Dieser Monat",six:"6 Monate",year:"Dieses Jahr"},lead:"Aufmacher",empty:"Keine großen Meldungen in diesem Zeitraum.",src:"Quelle",top:"Top-Meldung",
+  sec:{week:"Diese Woche",month:"Früher in diesem Monat",older:"Früher in diesem Jahr"},
+  foot:["The Wire Room wird von Claude aus den bei jeder Meldung genannten Medien zusammengestellt, bevorzugt Bloomberg, Financial Times, Wall Street Journal und Washington Post. Zur Ukraine wird auch Strana.ua genutzt. Die Zusammenfassungen sind eigene Texte; das Original steht hinter dem Quellenlink.","Neue Ausgaben erscheinen mehrmals täglich. Mit „Aktualisieren“ laden Sie die neueste."]},
+ es:{updated:"Actualizado",refresh:"Actualizar",refreshing:"Comprobando…",latest:"Tiene la última edición.",newer:"Nueva edición cargada.",fail:"No se pudo contactar con la redacción. Compruebe la conexión e inténtelo de nuevo.",day:"Día",night:"Noche",
+  regions:{worldwide:"Mundo",eu:"Europa",am:"Américas",as:"Asia y Oriente Medio",af:"África"},desks:{brief:"Resumen",war:"Conflictos",money:"Finanzas",power:"Política"},
+  heads:{brief:"Lo más importante de cada sección, resumido. Elija un periodo.",war:"Guerras, ataques y focos de tensión.",money:"Mercados, bancos centrales, operaciones y fraudes descubiertos.",power:"Elecciones, gobiernos y quienes los dirigen."},
+  periods:{live:"En directo",yday:"Ayer",week:"Esta semana",month:"Este mes",six:"6 meses",year:"Este año"},lead:"Noticia principal",empty:"No hay noticias importantes en este periodo.",src:"Fuente",top:"Destacado",
+  sec:{week:"Esta semana",month:"Antes este mes",older:"Antes este año"},
+  foot:["The Wire Room lo elabora Claude a partir de los medios citados en cada noticia, con preferencia por Bloomberg, Financial Times, The Wall Street Journal y The Washington Post. Sobre Ucrania usa también Strana.ua. Los resúmenes son propios; el original está en el enlace de la fuente.","Se publican nuevas ediciones varias veces al día. Pulse Actualizar para cargar la última."]},
+ zh:{updated:"更新于",refresh:"刷新",refreshing:"检查中…",latest:"已是最新版。",newer:"已加载新版。",fail:"无法连接编辑部，请检查网络后重试。",day:"日间",night:"夜间",
+  regions:{worldwide:"全球",eu:"欧洲",am:"美洲",as:"亚洲与中东",af:"非洲"},desks:{brief:"要闻简报",war:"冲突",money:"财经",power:"政治"},
+  heads:{brief:"各栏目最重要的新闻，一览无余。请选择时间范围。",war:"战争、袭击与热点地区。",money:"市场、央行、交易，以及被揭穿的金融骗局。",power:"选举、政府及其掌舵者。"},
+  periods:{live:"实时",yday:"昨天",week:"本周",month:"本月",six:"6个月",year:"今年"},lead:"头条",empty:"该时间段内没有重大新闻。",src:"来源",top:"头条",
+  sec:{week:"本周",month:"本月早些时候",older:"今年早些时候"},
+  foot:["The Wire Room 由 Claude 根据每条新闻标注的媒体整理，优先采用彭博社、《金融时报》、《华尔街日报》和《华盛顿邮报》。乌克兰报道也参考 Strana.ua。摘要为本站撰写，原文请点击来源链接。","每天发布数期新版，点击“刷新”加载最新一期。"]},
+ ar:{updated:"آخر تحديث",refresh:"تحديث",refreshing:"جارٍ التحقق…",latest:"لديك أحدث إصدار.",newer:"تم تحميل إصدار جديد.",fail:"تعذّر الوصول إلى غرفة الأخبار. تحقق من الاتصال وحاول مجدداً.",day:"نهاري",night:"ليلي",
+  regions:{worldwide:"العالم",eu:"أوروبا",am:"الأمريكتان",as:"آسيا والشرق الأوسط",af:"أفريقيا"},desks:{brief:"الموجز",war:"النزاعات",money:"المال",power:"السياسة"},
+  heads:{brief:"أبرز أخبار كل قسم باختصار. اختر الفترة الزمنية.",war:"حروب وضربات وبؤر توتر.",money:"أسواق وبنوك مركزية وصفقات ومن انكشف تلاعبه.",power:"انتخابات وحكومات ومن يقودها."},
+  periods:{live:"مباشر",yday:"أمس",week:"هذا الأسبوع",month:"هذا الشهر",six:"6 أشهر",year:"هذا العام"},lead:"الخبر الرئيسي",empty:"لا أخبار كبرى في هذه الفترة.",src:"المصدر",top:"الأبرز",
+  sec:{week:"هذا الأسبوع",month:"في وقت سابق من هذا الشهر",older:"في وقت سابق من هذا العام"},
+  foot:["يُعدّ Claude موقع The Wire Room من المصادر المذكورة مع كل خبر، مع تفضيل بلومبرغ وفايننشال تايمز ووول ستريت جورنال وواشنطن بوست. وتعتمد تغطية أوكرانيا أيضاً على Strana.ua. الملخصات مكتوبة لهذا الموقع؛ والأصل عبر رابط المصدر.","تصدر إصدارات جديدة عدة مرات يومياً. اضغط «تحديث» لتحميل الأحدث."]}
+};
+Object.keys(UI_MORE).forEach(k=>{UI[k]=Object.assign({},UI_MORE[k],{cr:UI.en.cr})});
+UI.en.day="Day";UI.en.night="Night";UI.ru.day="День";UI.ru.night="Ночь";
+const LOCALE={en:"en-GB",ru:"ru-RU",fr:"fr-FR",de:"de-DE",es:"es-ES",zh:"zh-CN",ar:"ar-u-nu-latn"};
+const PARIS={en:"Paris",ru:"Париж",fr:"Paris",de:"Paris",es:"París",zh:"巴黎",ar:"باريس"};
+const T=s=>s[lang]||s.en;
+const REG=["worldwide","eu","am","as","af"], DESKS=["brief","war","money","power"];
+const PER=["live","yday","week","month","six","year"];
+const DCOL={brief:"var(--accent)",war:"var(--war)",money:"var(--money)",power:"var(--power)"};
+const CLS={war:"c-war",money:"c-money",power:"c-power"};
+let lang="en", region="worldwide", desk="brief", period="live", view="news";
+let DATA=null, isOwner=false;
+try{const L=localStorage.getItem("wr-lang"); if(LOCALE[L]) lang=L; const P=localStorage.getItem("wr-period"); if(PER.includes(P)) period=P;}catch(e){}
+(function(){const h=location.hash.slice(1); if(h==="control"){view="control";return}
+  const [r,d]=h.split("-"); if(REG.includes(r)) region=r; if(DESKS.includes(d)) desk=d;})();
+
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const dayNum=s=>Math.round(Date.parse(s.slice(0,10)+"T00:00:00Z")/864e5);
+function fmtDate(d0,t,dl){ const d=new Date(d0+"T12:00:00Z");
+  try{ if(dl) return d.toLocaleDateString(LOCALE[lang],{month:"short",year:"numeric",timeZone:"UTC"});
+    return d.toLocaleDateString(LOCALE[lang],{day:"numeric",month:"short",timeZone:"UTC"})+(t?` · ${t}`:""); }catch(e){ return d0 } }
+function fmtEdition(iso){ const d=new Date(iso); try{ return d.toLocaleString(LOCALE[lang],{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZone:"Europe/Paris"})+" "+PARIS[lang] }catch(e){ return iso } }
+
+function inRegion(s){ return region==="worldwide" || s.r.includes(region) }
+function windowFor(p){ const ed=dayNum(DATA.edition); const y0=dayNum(DATA.edition.slice(0,4)+"-01-01");
+  return {live:[ed,ed],yday:[ed-1,ed-1],week:[ed-6,ed],month:[ed-30,ed],six:[ed-182,ed],year:[y0,ed]}[p]; }
+const rank=(a,b)=>(b.i-a.i)||(dayNum(b.d)-dayNum(a.d))||((b.t||"").localeCompare(a.t||""));
+
+function toast(msg){ let t=document.querySelector(".toast"); if(t) t.remove(); t=document.createElement("div"); t.className="toast"; t.setAttribute("role","status"); t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),3500); }
+
+function renderChrome(){
+  const u=UI[lang];
+  document.documentElement.lang=lang; document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+  document.getElementById("langSel").value=lang; renderTheme();
+  document.getElementById("stamp").textContent=DATA?`${u.updated} ${fmtEdition(DATA.edition)}`:"…";
+  document.getElementById("refreshLbl").textContent=u.refresh;
+  const cr=document.getElementById("crBtn"); cr.hidden=!isOwner; cr.classList.toggle("on",view==="control");
+  document.getElementById("regions").innerHTML=REG.map(r=>`<button role="tab" id="reg-${r}" data-r="${r}" aria-selected="${view==="news"&&r===region}">${u.regions[r]}</button>`).join("");
+  document.getElementById("desks").innerHTML=DESKS.map(d=>`<button role="tab" id="desk-${d}" data-d="${d}" style="--tab:${DCOL[d]}" aria-selected="${view==="news"&&d===desk}">${u.desks[d]}</button>`).join("");
+  document.querySelectorAll("#regions button").forEach(b=>b.onclick=()=>{region=b.dataset.r;view="news";go()});
+  document.querySelectorAll("#desks button").forEach(b=>b.onclick=()=>{desk=b.dataset.d;view="news";go()});
+  document.getElementById("foot").innerHTML=u.foot.map(p=>`<p>${esc(p)}</p>`).join("")+`<p class="copy">© 2026 The Wire Room / AVES6. All rights reserved.</p>`;
+}
+function go(){ try{history.replaceState(null,"","#"+(view==="control"?"control":region+"-"+desk))}catch(e){} render(); window.scrollTo({top:0}); }
+
+function head(title,sub){ const u=UI[lang]; return `<div class="deskhead"><div><div class="eyebrow">${esc(u.regions[region])}</div><h1>${esc(title)}</h1><p>${esc(sub)}</p></div><span class="stamp">${esc(u.updated+" "+fmtEdition(DATA.edition))}</span></div>`; }
+function srcLine(s){ return `<div class="src">${UI[lang].src}: <a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.s)}</a></div>`; }
+
+function renderBrief(){
+  const u=UI[lang]; const [a,b]=windowFor(period);
+  const pool=DATA.stories.filter(s=>inRegion(s)&&dayNum(s.d)>=a&&dayNum(s.d)<=b).sort(rank);
+  let h=head(u.desks.brief,u.heads.brief);
+  h+=`<div class="dial" role="group" aria-label="Period">`+PER.map(p=>`<button id="p-${p}" data-p="${p}" aria-pressed="${p===period}">${p==="live"?'<span class="dot"></span>':""}${u.periods[p]}</button>`).join("")+`</div>`;
+  const tk=(DATA.markets||{})[region]||[];
+  if(tk.length) h+=`<div class="ticker">`+tk.map(t=>`<div><div class="k">${esc(t[0])}</div><div class="v">${esc(t[1])}</div><div class="d ${t[3]||""}">${esc(t[2])}</div></div>`).join("")+`</div>`;
+  const lead=pool[0];
+  if(lead){ h+=`<section class="lead ${CLS[lead.k]}"><div class="kicker"><span>${u.lead} · ${u.desks[lead.k]}</span><span class="m">${esc(fmtDate(lead.d,lead.t,lead.dl))}</span></div><h2>${esc(T(lead)[0])}</h2><p>${esc(T(lead)[1])}</p>${srcLine(lead)}</section>`; }
+  h+=`<div class="board">`+["war","money","power"].map(k=>{
+    const items=pool.filter(s=>s.k===k&&s!==lead).slice(0,3);
+    return `<div class="col ${CLS[k]}"><h3>${u.desks[k]}</h3>`+(items.length?`<ol>`+items.map(s=>`<li><span class="when">${esc(fmtDate(s.d,s.t,s.dl))} · ${esc(s.s)}</span><b>${esc(T(s)[0])}</b><span class="sum">${esc(T(s)[1])}</span></li>`).join("")+`</ol>`:`<p class="empty">${u.empty}</p>`)+`</div>`;
+  }).join("")+`</div>`;
+  return h;
+}
+function renderDesk(k){
+  const u=UI[lang]; const ed=dayNum(DATA.edition);
+  const items=DATA.stories.filter(s=>s.k===k&&inRegion(s)).sort((x,y)=>(dayNum(y.d)-dayNum(x.d))||((y.t||"").localeCompare(x.t||""))||(y.i-x.i));
+  const groups=[["week",s=>ed-dayNum(s.d)<=6],["month",s=>ed-dayNum(s.d)>6&&ed-dayNum(s.d)<=30],["older",s=>ed-dayNum(s.d)>30]];
+  const topId=(items.filter(s=>ed-dayNum(s.d)<=6).sort(rank)[0]||{}).id;
+  let h=head(u.desks[k],u.heads[k])+`<div class="${CLS[k]}">`;
+  let any=false;
+  groups.forEach(([g,f])=>{ const list=items.filter(f); if(!list.length) return; any=true;
+    if(g==="week"&&topId){ const i=list.findIndex(s=>s.id===topId); if(i>0) list.unshift(list.splice(i,1)[0]); }
+    h+=`<div class="section">${u.sec[g]}</div><div class="feed">`+list.map(s=>`<article class="story ${s.id===topId?"top":""}"><div class="kicker">${s.id===topId?`<span>${u.top}</span>`:""}<span class="m">${esc(fmtDate(s.d,s.t,s.dl))}</span></div><h2>${esc(T(s)[0])}</h2><p>${esc(T(s)[1])}</p>${srcLine(s)}</article>`).join("")+`</div>`;
+  });
+  if(!any) h+=`<p class="empty">${u.empty}</p>`;
+  return h+`</div>`;
+}
+
+/* ---------- Control Room ---------- */
+let CR={visits:[],peers:[],names:{},ready:false,err:false};
+function renderControl(){
+  const c=UI[lang].cr;
+  const todayKey=new Date().toISOString().slice(0,10);
+  const others=CR.peers.filter(p=>p.kind==="viewer");
+  const totals=CR.visits.reduce((a,v)=>a+(v.count||0),0);
+  const today=CR.visits.reduce((a,v)=>a+((v.days||{})[todayKey]||0),0);
+  const days=[...Array(14)].map((_,i)=>{const d=new Date(Date.now()-(13-i)*864e5).toISOString().slice(0,10); return [d,CR.visits.reduce((a,v)=>a+((v.days||{})[d]||0),0)]});
+  const max=Math.max(1,...days.map(d=>d[1]));
+  let h=`<div class="deskhead"><div><div class="eyebrow">The Wire Room</div><h1>${c.title}</h1><p>${c.sub}</p></div><span class="stamp">${esc(c.edition+": "+fmtEdition(DATA.edition))}</span></div>`;
+  if(CR.err){ return h+`<div class="panel"><p class="note">${c.noData}</p></div>`; }
+  h+=`<div class="cr-grid">
+    <div class="stat"><div class="k"><span class="live-dot"></span>${c.online}</div><div class="v">${others.length}</div><div class="d">${others.filter(p=>!p.isMe).length?"":c.nobodyOnline}</div></div>
+    <div class="stat"><div class="k">${c.unique}</div><div class="v">${CR.visits.length}</div></div>
+    <div class="stat"><div class="k">${c.visits}</div><div class="v">${totals}</div></div>
+    <div class="stat"><div class="k">${c.today}</div><div class="v">${today}</div></div></div>`;
+  if(others.length){ h+=`<div class="panel"><h3>${c.online}</h3><div class="peers">`+others.map(p=>`<span class="peer">${esc(p.isMe?c.you:(CR.names[p.by]||"—"))}${p.guest?" · "+c.guest:""}${p.presence&&p.presence.where?" · "+esc(String(p.presence.where)):""}</span>`).join("")+`</div></div>`; }
+  h+=`<div class="panel"><h3>${c.daily}</h3><div class="bars">`+days.map(d=>`<div style="height:${Math.round(d[1]/max*100)}%"><span>${d[1]||""}</span></div>`).join("")+`</div><div class="barlbl">`+days.map(d=>`<span>${+d[0].slice(8)}</span>`).join("")+`</div></div>`;
+  const rows=[...CR.visits].sort((a,b)=>String(b.last).localeCompare(String(a.last))).slice(0,50);
+  h+=`<div class="panel"><h3>${c.recent}</h3>`+(rows.length?`<div class="tbl"><table><thead><tr><th>${c.who}</th><th>${c.n}</th><th>${c.first}</th><th>${c.last}</th></tr></thead><tbody>`+rows.map(v=>`<tr><td>${esc(v.self?c.you:(CR.names[v.id]||"—"))} <span class="chip">${v.self?c.you:(v.guest?c.guest:c.member)}</span></td><td class="n">${v.count||0}</td><td class="n">${esc(fmtTime(v.first))}</td><td class="n">${esc(fmtTime(v.last))}</td></tr>`).join("")+`</tbody></table></div>`:`<p class="note">${c.none}</p>`)+`</div>`;
+  h+=`<div class="panel"><h3>${c.schedule}</h3><p class="note">${c.schedTxt}</p><p class="note">${c.note}</p></div>`;
+  return h;
+}
+function fmtTime(iso){ if(!iso) return "—"; try{return new Date(iso).toLocaleString(LOCALE[lang],{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit",timeZone:"Europe/Paris"})}catch(e){return iso} }
+
+function render(){
+  renderChrome();
+  const m=document.getElementById("main");
+  if(!DATA){ m.innerHTML=`<div class="loading">…</div>`; return; }
+  if(view==="control"&&isOwner) m.innerHTML=renderControl();
+  else { if(view==="control") view="news"; m.innerHTML=desk==="brief"?renderBrief():renderDesk(desk); }
+  m.querySelectorAll(".dial button").forEach(b=>b.onclick=()=>{period=b.dataset.p;try{localStorage.setItem("wr-period",period)}catch(e){};render()});
+}
+
+async function loadNews(manual){
+  const btn=document.getElementById("refresh");
+  if(manual){ btn.classList.add("spin"); document.getElementById("refreshLbl").textContent=UI[lang].refreshing; }
+  try{
+    const r=await fetch("news.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error(r.status);
+    const j=await r.json(); const newer=!DATA||j.edition!==DATA.edition; DATA=j; render();
+    if(manual) toast(newer?UI[lang].newer:UI[lang].latest);
+  }catch(e){ if(manual||!DATA) toast(UI[lang].fail); if(!DATA) document.getElementById("main").innerHTML=`<div class="loading">${esc(UI[lang].fail)}</div>`; }
+  finally{ btn.classList.remove("spin"); document.getElementById("refreshLbl").textContent=UI[lang].refresh; }
+}
+
+/* ---------- capabilities: visit log, presence, owner tools ---------- */
+async function boot(){
+  if(!window.claude||!window.claude.use) { CR.err=true; return; }
+  const [user,db,room]=await Promise.all([claude.use("user"),claude.use("db"),claude.use("room")]);
+  if(user){ try{ isOwner=await user.isOwner() }catch(e){} renderChrome(); if(view==="control") render(); }
+  let myId=null; if(user){ try{ myId=await user.id() }catch(e){} }
+  if(room){
+    try{ room.presence({where:region+"/"+desk}).catch(()=>{}); }catch(e){}
+    room.onPeers(ch=>{ CR.peers=ch.peers; if(isOwner){ resolveNames(user,ch.peers.map(p=>p.by)); if(view==="control") render(); } });
+  }
+  if(db&&myId){
+    let fresh=true; try{ if(sessionStorage.getItem("wr-v")) fresh=false; else sessionStorage.setItem("wr-v","1") }catch(e){}
+    if(fresh){ try{
+      const ref=db.doc("visits/"+myId); const snap=await ref.get(); const prev=snap.exists?snap.data():{};
+      const now=new Date().toISOString(), key=now.slice(0,10); const days={};
+      Object.entries(prev.days||{}).forEach(([k,v])=>{ if(Date.parse(k)>Date.now()-60*864e5) days[k]=v });
+      days[key]=(days[key]||0)+1;
+      await ref.set({first:prev.first||now,last:now,count:(prev.count||0)+1,days,owner:!!isOwner});
+    }catch(e){} }
+  }
+  if(isOwner&&db){
+    db.collection("visits").onSnapshot(s=>{ CR.visits=s.docs.map(d=>({id:d.id,self:d.id===myId,...d.data()})); resolveNames(user,CR.visits.map(v=>v.id)); CR.ready=true; if(view==="control") render(); },()=>{ CR.err=true; if(view==="control") render(); });
+  } else if(isOwner){ CR.err=true; }
+}
+async function resolveNames(user,ids){
+  if(!user) return; ids=[...new Set(ids.filter(Boolean))].filter(i=>!(i in CR.names)); if(!ids.length) return;
+  try{ const ps=await user.profiles(ids); ids.forEach(i=>{ CR.names[i]=(ps[i]&&ps[i].name)||(lang==="ru"?"Кто-то":"Someone"); }); if(view==="control") render(); }catch(e){}
+}
+
+document.getElementById("langSel").onchange=e=>{lang=e.target.value;try{localStorage.setItem("wr-lang",lang)}catch(e){};render()};
+let theme=null; try{theme=localStorage.getItem("wr-theme")}catch(e){}
+function effTheme(){ return theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light") }
+function renderTheme(){ const t=effTheme(); if(theme) document.documentElement.setAttribute("data-theme",theme);
+  const u=UI[lang]; document.getElementById("themeLbl").textContent=t==="dark"?u.day:u.night;
+  document.getElementById("themeIco").innerHTML=t==="dark"?'<circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>':'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>'; }
+document.getElementById("themeBtn").onclick=()=>{ theme=effTheme()==="dark"?"light":"dark"; try{localStorage.setItem("wr-theme",theme)}catch(e){}; renderTheme(); };
+if(theme) document.documentElement.setAttribute("data-theme",theme);
+document.getElementById("refresh").onclick=()=>loadNews(true);
+document.getElementById("home").onclick=()=>{view="news";region="worldwide";desk="brief";go()};
+document.getElementById("crBtn").onclick=()=>{view=view==="control"?"news":"control";go()};
+render(); loadNews(false); boot();
+</script>
+
+</body>
+</html>
