@@ -3,35 +3,35 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>The Wire Room</title>
-<meta name="description" content="Independent world news briefing: conflicts, money and politics across Europe, the Americas, Asia & Middle East and Africa, in seven languages.">
-<meta property="og:title" content="The Wire Room">
-<meta property="og:description" content="Independent world news briefing in seven languages, updated several times a day.">
+<title>Forseti</title>
+<meta name="description" content="Forseti: an independent world news briefing on conflicts, money and politics across Europe, the Americas, Asia & Middle East and Africa, in seven languages.">
+<meta property="og:title" content="Forseti">
+<meta property="og:description" content="Every side. One record. Independent world news briefing in seven languages, updated several times a day.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0f3b28">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230f3b28'/%3E%3Ctext x='32' y='44' font-family='Arial Narrow,Arial' font-weight='800' font-size='30' text-anchor='middle' fill='%23f1f7f3'%3EWR%3C/text%3E%3C/svg%3E">
-<meta name="copyright" content="© 2026 The Wire Room / AVES6. All rights reserved.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Crect width="64" height="64" rx="14" fill="%230f3b28"/%3E%3Cg transform="translate%2810 8%29 scale%280.22%29" fill="none" stroke="%23f1f7f3" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M40 80 Q100 14 160 80"/%3E%3Cpath d="M100 94 L100 130"/%3E%3Cpath d="M100 144 C 84 140%2C 64 144%2C 50 162"/%3E%3Cpath d="M100 144 C 116 140%2C 136 144%2C 150 162"/%3E%3Cpath d="M46 112 C 44 152%2C 62 186%2C 100 210"/%3E%3Cpath d="M154 112 C 156 152%2C 138 186%2C 100 210"/%3E%3C/g%3E%3Cg transform="translate%2810 8%29 scale%280.22%29" fill="%23f1f7f3"%3E%3Cpath d="M56 106 Q74 93 92 106 Q74 117 56 106 Z"/%3E%3Cpath d="M144 106 Q126 93 108 106 Q126 117 144 106 Z"/%3E%3C/g%3E%3Ccircle cx="32" cy="17.7" r="2.4" fill="%23b08d3c"/%3E%3C/svg%3E">
+<meta name="copyright" content="© 2026 Forseti / AVES6. All rights reserved.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&family=Noto+Serif+SC:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Cinzel:wght@700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&family=Noto+Serif+SC:wght@400;600&display=swap">
 <style>
 /* Layout: wire-desk — dark masthead with region row + desk row, briefing board with period dial, dispatch feeds per desk; owner-only Control Room */
 :root{
   --paper:#ffffff; --card:#ffffff; --tint:#f3f7f4; --ink:#14201a; --muted:#56655c; --rule:#d9e2dc;
   --mast:#0f3b28; --mast-fg:#f1f7f3;
-  --accent:#1d6b45; --war:#b3263a; --money:#8a6200; --power:#6a43a8;
+  --accent:#1d6b45; --gold:#b08d3c; --war:#b3263a; --money:#8a6200; --power:#6a43a8;
   --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
   --body:"Source Serif 4",Georgia,"Times New Roman",serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#0f1612; --card:#151f19; --tint:#1a261f; --ink:#e3ebe6; --muted:#9db0a4; --rule:#26352c; --mast:#0a2318; --mast-fg:#e3ebe6;
-  --accent:#6fcf97; --war:#ff7a85; --money:#e3b850; --power:#b9a0f2; color-scheme:dark}}
+  --accent:#6fcf97; --gold:#e3b850; --war:#ff7a85; --money:#e3b850; --power:#b9a0f2; color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#0f1612; --card:#151f19; --tint:#1a261f; --ink:#e3ebe6; --muted:#9db0a4; --rule:#26352c; --mast:#0a2318; --mast-fg:#e3ebe6;
-  --accent:#6fcf97; --war:#ff7a85; --money:#e3b850; --power:#b9a0f2; color-scheme:dark}
+  --accent:#6fcf97; --gold:#e3b850; --war:#ff7a85; --money:#e3b850; --power:#b9a0f2; color-scheme:dark}
 :root[data-theme="light"]{color-scheme:light}
 :root:lang(ar){--body:"Noto Naskh Arabic","Source Serif 4",serif;--display:"Noto Naskh Arabic","Arial",sans-serif}
 :root:lang(zh){--body:"Noto Serif SC","Source Serif 4",serif;--display:"Noto Serif SC","Arial",sans-serif}
@@ -42,8 +42,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--mast);color:var(--mast-fg)}
 .bar{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap;padding-block:12px 6px}
-.brand{font-family:var(--display);font-weight:800;font-size:30px;letter-spacing:.02em;text-transform:uppercase;line-height:1;margin-right:auto;cursor:pointer;background:none;border:0;color:inherit;padding:0;text-align:left}
-.brand small{display:block;font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.06em;opacity:.75;margin-top:5px;text-transform:none}
+.brand{display:flex;align-items:center;gap:12px;margin-right:auto;cursor:pointer;background:none;border:0;color:inherit;padding:0;text-align:start}
+.brand .mark{width:40px;height:44px;flex:none}
+.brand .word{display:block;font-family:"Cinzel",Georgia,serif;font-weight:700;font-size:30px;letter-spacing:.08em;line-height:1}
+.brand small{display:block;font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.06em;opacity:.75;margin-top:5px}
 .tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .btn{font:600 12.5px var(--mono);border:1px solid color-mix(in srgb,var(--mast-fg) 35%,transparent);background:none;color:inherit;padding:7px 11px;border-radius:4px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
 .btn:hover{background:color-mix(in srgb,var(--mast-fg) 10%,transparent)}
@@ -112,7 +114,10 @@ article.story p{margin:0;font-size:16px}
 .src a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 40%,transparent)}
 .src a:hover{border-bottom-color:var(--accent)}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(18px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--paper);font:13px var(--mono);padding:10px 16px;border-radius:6px;z-index:20;max-width:calc(100vw - 32px)}
-footer{border-top:1px solid var(--rule);padding-block:20px 40px;color:var(--muted);font-size:14px}
+footer{border-top:1px solid var(--rule);padding-block:24px 40px;color:var(--muted);font-size:14px}
+.foot-in{display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap}
+.foot-in #foot{flex:1 1 320px;min-width:0}
+.seal{width:96px;height:96px;flex:none}
 footer p{max-width:80ch;margin:0 0 8px}
 footer .copy{font:12px var(--mono);letter-spacing:.03em;margin-top:14px}
 .loading{color:var(--muted);font:14px var(--mono);padding-block:40px}
@@ -144,7 +149,16 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
 <header class="top">
   <div class="wrap">
     <div class="bar">
-      <button class="brand" id="home">The Wire Room<small id="stamp">Loading edition…</small></button>
+      <button class="brand" id="home" aria-label="Forseti home"><svg class="mark" viewBox="0 0 200 220" aria-hidden="true">
+<g fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--mast-fg)">
+<path d="M40 80 Q100 14 160 80"/><path d="M52 94 Q74 80 96 94"/><path d="M104 94 Q126 80 148 94"/><path d="M100 94 L100 130"/>
+<path d="M100 144 C 84 140, 64 144, 50 162"/><path d="M100 144 C 116 140, 136 144, 150 162"/>
+<path d="M46 112 C 44 152, 62 186, 100 210"/><path d="M154 112 C 156 152, 138 186, 100 210"/>
+<path d="M128 168 C 118 182, 84 184, 72 198"/><path d="M72 168 C 82 182, 116 184, 128 198" stroke-width="19" style="stroke:var(--mast)"/><path d="M72 168 C 82 182, 116 184, 128 198"/>
+</g>
+<path d="M58 106 Q74 95 90 106 Q74 115 58 106 Z" style="fill:var(--mast-fg)"/><path d="M142 106 Q126 95 110 106 Q126 115 142 106 Z" style="fill:var(--mast-fg)"/>
+<circle cx="100" cy="44" r="8" style="fill:var(--gold)"/>
+</svg><span><span class="word">FORSETI</span><small id="stamp">Loading edition…</small></span></button>
       <div class="tools">
         <button class="btn" id="refresh" title="Load the latest edition"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg><span id="refreshLbl">Refresh</span></button>
         <button class="btn" id="crBtn" hidden>Control Room</button>
@@ -162,7 +176,24 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
 </header>
 
 <main class="wrap" id="main"><div class="loading">Loading the latest edition…</div></main>
-<footer class="wrap" id="foot"></footer>
+<footer class="wrap"><div class="foot-in"><svg class="seal" viewBox="0 0 260 260" role="img" aria-label="Forseti seal">
+<circle cx="130" cy="130" r="124" fill="none" stroke-width="4" style="stroke:var(--accent)"/>
+<circle cx="130" cy="130" r="98" fill="none" stroke-width="2" style="stroke:var(--accent)"/>
+<path id="sealRing" d="M130 130 m -111 0 a 111 111 0 1 1 222 0 a 111 111 0 1 1 -222 0" fill="none"/>
+<text font-family="Cinzel, Georgia, serif" font-weight="700" font-size="15" letter-spacing="5" style="fill:var(--accent)"><textPath href="#sealRing" startOffset="2%">FORSETI · EVERY SIDE · ONE RECORD ·</textPath></text>
+<g transform="translate(58 44) scale(0.72)">
+<g fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--accent)">
+<path d="M40 80 Q100 14 160 80"/><path d="M52 94 Q74 80 96 94"/><path d="M104 94 Q126 80 148 94"/><path d="M100 94 L100 130"/><path d="M89 134 Q100 142 111 134"/>
+<path d="M100 144 C 84 140, 64 144, 50 162"/><path d="M100 144 C 116 140, 136 144, 150 162"/>
+<path d="M46 112 C 44 152, 62 186, 100 210"/><path d="M154 112 C 156 152, 138 186, 100 210"/>
+<path d="M128 168 C 118 182, 84 184, 72 198"/><path d="M72 168 C 82 182, 116 184, 128 198" stroke-width="17" style="stroke:var(--paper)"/><path d="M72 168 C 82 182, 116 184, 128 198"/>
+</g>
+<path d="M58 106 Q74 95 90 106 Q74 115 58 106 Z" style="fill:var(--accent)"/><path d="M142 106 Q126 95 110 106 Q126 115 142 106 Z" style="fill:var(--accent)"/>
+<circle cx="100" cy="44" r="7" style="fill:var(--gold)"/>
+</g>
+<path d="M130 222 L130 246" stroke-width="4" stroke-linecap="round" style="stroke:var(--gold)"/>
+<path d="M130 224 C 142 222, 148 230, 146 240 C 140 236, 134 236, 130 238 Z" style="fill:var(--gold)"/>
+</svg><div id="foot"></div></div></footer>
 
 <script>
 const UI={
@@ -173,7 +204,7 @@ const UI={
    periods:{live:"Live",yday:"Yesterday",week:"This Week",month:"This Month",six:"6 Months",year:"This Year"},
    lead:"Lead story",empty:"No major stories in this window.",src:"Source",top:"Top story",
    sec:{week:"This week",month:"Earlier this month",older:"Earlier this year"},
-   foot:["The Wire Room is compiled by Claude from the outlets credited on every story, with Bloomberg, the Financial Times, The Wall Street Journal and The Washington Post preferred where they report a story. Ukraine coverage also draws on Strana.ua. Summaries are written for this site; follow the source link for the original reporting.","New editions are published several times a day. Press Refresh to load the latest."],
+   foot:["Forseti is compiled by Claude from the outlets credited on every story, with Bloomberg, the Financial Times, The Wall Street Journal and The Washington Post preferred where they report a story. Ukraine coverage also draws on Strana.ua. Summaries are written for this site; follow the source link for the original reporting.","New editions are published several times a day. Press Refresh to load the latest."],
    cr:{title:"Control Room",sub:"Audience and publishing status. Only you can see this page.",online:"Online now",unique:"Unique visitors",visits:"Total visits",today:"Visits today",daily:"Visits, last 14 days",recent:"Recent visitors",who:"Visitor",n:"Visits",first:"First seen",last:"Last seen",you:"you",guest:"guest",member:"member",edition:"Current edition",schedule:"Automatic updates",schedTxt:"A scheduled task collects fresh news and publishes a new edition at 07:00, 12:00, 17:00 and 21:00 Paris time. Open viewers switch to it automatically.",note:"Counts include everyone who opens the site while signed in to Claude. People who open a public link without signing in can read the site but are not counted, because the platform gives this page no way to record them.",none:"No visits recorded yet.",nobodyOnline:"Only you right now.",noData:"Visitor data is unavailable in this view. Open the site from claude.ai while signed in."}},
  ru:{updated:"Обновлено",refresh:"Обновить",refreshing:"Проверяю…",latest:"У вас самый свежий выпуск.",newer:"Загружен новый выпуск.",fail:"Не удалось связаться с редакцией. Проверьте подключение и попробуйте ещё раз.",
    regions:{worldwide:"Весь мир",eu:"Европа",am:"Америки",as:"Азия и Ближний Восток",af:"Африка"},
@@ -182,7 +213,7 @@ const UI={
    periods:{live:"Онлайн",yday:"Вчера",week:"Неделя",month:"Месяц",six:"6 месяцев",year:"Год"},
    lead:"Главная новость",empty:"Крупных новостей за этот период нет.",src:"Источник",top:"Главное",
    sec:{week:"Эта неделя",month:"Ранее в этом месяце",older:"Ранее в этом году"},
-   foot:["The Wire Room собирает Claude по материалам изданий, указанных у каждой новости; в приоритете Bloomberg, Financial Times, The Wall Street Journal и The Washington Post, если они освещают тему. По Украине используется также «Страна». Пересказы написаны для этого сайта; оригинал — по ссылке на источник.","Новые выпуски выходят несколько раз в день. Нажмите «Обновить», чтобы загрузить последний."],
+   foot:["Forseti собирает Claude по материалам изданий, указанных у каждой новости; в приоритете Bloomberg, Financial Times, The Wall Street Journal и The Washington Post, если они освещают тему. По Украине используется также «Страна». Пересказы написаны для этого сайта; оригинал — по ссылке на источник.","Новые выпуски выходят несколько раз в день. Нажмите «Обновить», чтобы загрузить последний."],
    cr:{title:"Control Room",sub:"Аудитория и статус публикации. Эту страницу видите только вы.",online:"Сейчас на сайте",unique:"Уникальные посетители",visits:"Всего визитов",today:"Визитов сегодня",daily:"Визиты за 14 дней",recent:"Последние посетители",who:"Посетитель",n:"Визиты",first:"Впервые",last:"Последний раз",you:"вы",guest:"гость",member:"участник",edition:"Текущий выпуск",schedule:"Автообновление",schedTxt:"Запланированная задача собирает свежие новости и публикует новый выпуск в 07:00, 12:00, 17:00 и 21:00 по Парижу. Открытые страницы переключаются на него сами.",note:"Учитываются все, кто открывает сайт, войдя в Claude. Тех, кто открывает публичную ссылку без входа, сайт показывает, но не считает: платформа не даёт странице их записывать.",none:"Визитов пока нет.",nobodyOnline:"Сейчас только вы.",noData:"Данные о посетителях недоступны в этом окне. Откройте сайт на claude.ai, войдя в аккаунт."}}
 };
 
@@ -192,31 +223,31 @@ const UI_MORE={
   heads:{brief:"Les plus grandes informations de chaque rubrique, en bref. Choisissez une période.",war:"Guerres, frappes et points chauds.",money:"Marchés, banques centrales, transactions et fraudes mises au jour.",power:"Élections, gouvernements et ceux qui les dirigent."},
   periods:{live:"En direct",yday:"Hier",week:"Cette semaine",month:"Ce mois",six:"6 mois",year:"Cette année"},lead:"À la une",empty:"Pas d'information majeure sur cette période.",src:"Source",top:"À la une",
   sec:{week:"Cette semaine",month:"Plus tôt ce mois-ci",older:"Plus tôt cette année"},
-  foot:["The Wire Room est compilé par Claude à partir des médias cités pour chaque article, en privilégiant Bloomberg, le Financial Times, le Wall Street Journal et le Washington Post. L'Ukraine s'appuie aussi sur Strana.ua. Les résumés sont rédigés pour ce site ; suivez le lien pour l'article original.","De nouvelles éditions paraissent plusieurs fois par jour. Appuyez sur Actualiser pour charger la dernière."]},
+  foot:["Forseti est compilé par Claude à partir des médias cités pour chaque article, en privilégiant Bloomberg, le Financial Times, le Wall Street Journal et le Washington Post. L'Ukraine s'appuie aussi sur Strana.ua. Les résumés sont rédigés pour ce site ; suivez le lien pour l'article original.","De nouvelles éditions paraissent plusieurs fois par jour. Appuyez sur Actualiser pour charger la dernière."]},
  de:{updated:"Aktualisiert",refresh:"Aktualisieren",refreshing:"Prüfe…",latest:"Sie haben die neueste Ausgabe.",newer:"Neue Ausgabe geladen.",fail:"Redaktion nicht erreichbar. Prüfen Sie die Verbindung und versuchen Sie es erneut.",day:"Tag",night:"Nacht",
   regions:{worldwide:"Weltweit",eu:"Europa",am:"Amerika",as:"Asien & Nahost",af:"Afrika"},desks:{brief:"Überblick",war:"Konflikte",money:"Finanzen",power:"Politik"},
   heads:{brief:"Die wichtigsten Meldungen jeder Rubrik, kompakt. Zeitraum wählen.",war:"Kriege, Angriffe und Krisenherde.",money:"Märkte, Notenbanken, Deals und aufgeflogene Betrügereien.",power:"Wahlen, Regierungen und die Menschen an der Spitze."},
   periods:{live:"Live",yday:"Gestern",week:"Diese Woche",month:"Dieser Monat",six:"6 Monate",year:"Dieses Jahr"},lead:"Aufmacher",empty:"Keine großen Meldungen in diesem Zeitraum.",src:"Quelle",top:"Top-Meldung",
   sec:{week:"Diese Woche",month:"Früher in diesem Monat",older:"Früher in diesem Jahr"},
-  foot:["The Wire Room wird von Claude aus den bei jeder Meldung genannten Medien zusammengestellt, bevorzugt Bloomberg, Financial Times, Wall Street Journal und Washington Post. Zur Ukraine wird auch Strana.ua genutzt. Die Zusammenfassungen sind eigene Texte; das Original steht hinter dem Quellenlink.","Neue Ausgaben erscheinen mehrmals täglich. Mit „Aktualisieren“ laden Sie die neueste."]},
+  foot:["Forseti wird von Claude aus den bei jeder Meldung genannten Medien zusammengestellt, bevorzugt Bloomberg, Financial Times, Wall Street Journal und Washington Post. Zur Ukraine wird auch Strana.ua genutzt. Die Zusammenfassungen sind eigene Texte; das Original steht hinter dem Quellenlink.","Neue Ausgaben erscheinen mehrmals täglich. Mit „Aktualisieren“ laden Sie die neueste."]},
  es:{updated:"Actualizado",refresh:"Actualizar",refreshing:"Comprobando…",latest:"Tiene la última edición.",newer:"Nueva edición cargada.",fail:"No se pudo contactar con la redacción. Compruebe la conexión e inténtelo de nuevo.",day:"Día",night:"Noche",
   regions:{worldwide:"Mundo",eu:"Europa",am:"Américas",as:"Asia y Oriente Medio",af:"África"},desks:{brief:"Resumen",war:"Conflictos",money:"Finanzas",power:"Política"},
   heads:{brief:"Lo más importante de cada sección, resumido. Elija un periodo.",war:"Guerras, ataques y focos de tensión.",money:"Mercados, bancos centrales, operaciones y fraudes descubiertos.",power:"Elecciones, gobiernos y quienes los dirigen."},
   periods:{live:"En directo",yday:"Ayer",week:"Esta semana",month:"Este mes",six:"6 meses",year:"Este año"},lead:"Noticia principal",empty:"No hay noticias importantes en este periodo.",src:"Fuente",top:"Destacado",
   sec:{week:"Esta semana",month:"Antes este mes",older:"Antes este año"},
-  foot:["The Wire Room lo elabora Claude a partir de los medios citados en cada noticia, con preferencia por Bloomberg, Financial Times, The Wall Street Journal y The Washington Post. Sobre Ucrania usa también Strana.ua. Los resúmenes son propios; el original está en el enlace de la fuente.","Se publican nuevas ediciones varias veces al día. Pulse Actualizar para cargar la última."]},
+  foot:["Forseti lo elabora Claude a partir de los medios citados en cada noticia, con preferencia por Bloomberg, Financial Times, The Wall Street Journal y The Washington Post. Sobre Ucrania usa también Strana.ua. Los resúmenes son propios; el original está en el enlace de la fuente.","Se publican nuevas ediciones varias veces al día. Pulse Actualizar para cargar la última."]},
  zh:{updated:"更新于",refresh:"刷新",refreshing:"检查中…",latest:"已是最新版。",newer:"已加载新版。",fail:"无法连接编辑部，请检查网络后重试。",day:"日间",night:"夜间",
   regions:{worldwide:"全球",eu:"欧洲",am:"美洲",as:"亚洲与中东",af:"非洲"},desks:{brief:"要闻简报",war:"冲突",money:"财经",power:"政治"},
   heads:{brief:"各栏目最重要的新闻，一览无余。请选择时间范围。",war:"战争、袭击与热点地区。",money:"市场、央行、交易，以及被揭穿的金融骗局。",power:"选举、政府及其掌舵者。"},
   periods:{live:"实时",yday:"昨天",week:"本周",month:"本月",six:"6个月",year:"今年"},lead:"头条",empty:"该时间段内没有重大新闻。",src:"来源",top:"头条",
   sec:{week:"本周",month:"本月早些时候",older:"今年早些时候"},
-  foot:["The Wire Room 由 Claude 根据每条新闻标注的媒体整理，优先采用彭博社、《金融时报》、《华尔街日报》和《华盛顿邮报》。乌克兰报道也参考 Strana.ua。摘要为本站撰写，原文请点击来源链接。","每天发布数期新版，点击“刷新”加载最新一期。"]},
+  foot:["Forseti 由 Claude 根据每条新闻标注的媒体整理，优先采用彭博社、《金融时报》、《华尔街日报》和《华盛顿邮报》。乌克兰报道也参考 Strana.ua。摘要为本站撰写，原文请点击来源链接。","每天发布数期新版，点击“刷新”加载最新一期。"]},
  ar:{updated:"آخر تحديث",refresh:"تحديث",refreshing:"جارٍ التحقق…",latest:"لديك أحدث إصدار.",newer:"تم تحميل إصدار جديد.",fail:"تعذّر الوصول إلى غرفة الأخبار. تحقق من الاتصال وحاول مجدداً.",day:"نهاري",night:"ليلي",
   regions:{worldwide:"العالم",eu:"أوروبا",am:"الأمريكتان",as:"آسيا والشرق الأوسط",af:"أفريقيا"},desks:{brief:"الموجز",war:"النزاعات",money:"المال",power:"السياسة"},
   heads:{brief:"أبرز أخبار كل قسم باختصار. اختر الفترة الزمنية.",war:"حروب وضربات وبؤر توتر.",money:"أسواق وبنوك مركزية وصفقات ومن انكشف تلاعبه.",power:"انتخابات وحكومات ومن يقودها."},
   periods:{live:"مباشر",yday:"أمس",week:"هذا الأسبوع",month:"هذا الشهر",six:"6 أشهر",year:"هذا العام"},lead:"الخبر الرئيسي",empty:"لا أخبار كبرى في هذه الفترة.",src:"المصدر",top:"الأبرز",
   sec:{week:"هذا الأسبوع",month:"في وقت سابق من هذا الشهر",older:"في وقت سابق من هذا العام"},
-  foot:["يُعدّ Claude موقع The Wire Room من المصادر المذكورة مع كل خبر، مع تفضيل بلومبرغ وفايننشال تايمز ووول ستريت جورنال وواشنطن بوست. وتعتمد تغطية أوكرانيا أيضاً على Strana.ua. الملخصات مكتوبة لهذا الموقع؛ والأصل عبر رابط المصدر.","تصدر إصدارات جديدة عدة مرات يومياً. اضغط «تحديث» لتحميل الأحدث."]}
+  foot:["يُعدّ Claude موقع Forseti من المصادر المذكورة مع كل خبر، مع تفضيل بلومبرغ وفايننشال تايمز ووول ستريت جورنال وواشنطن بوست. وتعتمد تغطية أوكرانيا أيضاً على Strana.ua. الملخصات مكتوبة لهذا الموقع؛ والأصل عبر رابط المصدر.","تصدر إصدارات جديدة عدة مرات يومياً. اضغط «تحديث» لتحميل الأحدث."]}
 };
 Object.keys(UI_MORE).forEach(k=>{UI[k]=Object.assign({},UI_MORE[k],{cr:UI.en.cr})});
 UI.en.day="Day";UI.en.night="Night";UI.ru.day="День";UI.ru.night="Ночь";
@@ -258,7 +289,7 @@ function renderChrome(){
   document.getElementById("desks").innerHTML=DESKS.map(d=>`<button role="tab" id="desk-${d}" data-d="${d}" style="--tab:${DCOL[d]}" aria-selected="${view==="news"&&d===desk}">${u.desks[d]}</button>`).join("");
   document.querySelectorAll("#regions button").forEach(b=>b.onclick=()=>{region=b.dataset.r;view="news";go()});
   document.querySelectorAll("#desks button").forEach(b=>b.onclick=()=>{desk=b.dataset.d;view="news";go()});
-  document.getElementById("foot").innerHTML=u.foot.map(p=>`<p>${esc(p)}</p>`).join("")+`<p class="copy">© 2026 The Wire Room / AVES6. All rights reserved.</p>`;
+  document.getElementById("foot").innerHTML=u.foot.map(p=>`<p>${esc(p)}</p>`).join("")+`<p class="copy">© 2026 Forseti / AVES6. All rights reserved.</p>`;
 }
 function go(){ try{history.replaceState(null,"","#"+(view==="control"?"control":region+"-"+desk))}catch(e){} render(); window.scrollTo({top:0}); }
 
@@ -305,7 +336,7 @@ function renderControl(){
   const today=CR.visits.reduce((a,v)=>a+((v.days||{})[todayKey]||0),0);
   const days=[...Array(14)].map((_,i)=>{const d=new Date(Date.now()-(13-i)*864e5).toISOString().slice(0,10); return [d,CR.visits.reduce((a,v)=>a+((v.days||{})[d]||0),0)]});
   const max=Math.max(1,...days.map(d=>d[1]));
-  let h=`<div class="deskhead"><div><div class="eyebrow">The Wire Room</div><h1>${c.title}</h1><p>${c.sub}</p></div><span class="stamp">${esc(c.edition+": "+fmtEdition(DATA.edition))}</span></div>`;
+  let h=`<div class="deskhead"><div><div class="eyebrow">Forseti</div><h1>${c.title}</h1><p>${c.sub}</p></div><span class="stamp">${esc(c.edition+": "+fmtEdition(DATA.edition))}</span></div>`;
   if(CR.err){ return h+`<div class="panel"><p class="note">${c.noData}</p></div>`; }
   h+=`<div class="cr-grid">
     <div class="stat"><div class="k"><span class="live-dot"></span>${c.online}</div><div class="v">${others.length}</div><div class="d">${others.filter(p=>!p.isMe).length?"":c.nobodyOnline}</div></div>
