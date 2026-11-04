@@ -406,6 +406,7 @@ function renderControl(){
   const days=[...Array(14)].map((_,i)=>{const d=new Date(Date.now()-(13-i)*864e5).toISOString().slice(0,10); return [d,CR.visits.reduce((a,v)=>a+((v.days||{})[d]||0),0)]});
   const max=Math.max(1,...days.map(d=>d[1]));
   let h=`<div class="deskhead"><div><div class="eyebrow">Forseti</div><h1>${c.title}</h1><p>${c.sub}</p></div><span class="stamp">${esc(c.edition+": "+fmtEdition(DATA.edition))}</span></div>`;
+  h+=gcPanel();
   if(CR.err){ return h+`<div class="panel"><p class="note">${c.noData}</p></div>`; }
   h+=`<div class="cr-grid">
     <div class="stat"><div class="k"><span class="live-dot"></span>${c.online}</div><div class="v">${others.length}</div><div class="d">${others.filter(p=>!p.isMe).length?"":c.nobodyOnline}</div></div>
@@ -584,8 +585,24 @@ function checkDeep(){ let m=null; try{ m=/^#s=(.+)$/.exec(location.hash) }catch(
   let id=m[1]; try{ id=decodeURIComponent(id) }catch(e){}
   const s=findStory(id); if(s){ if(!storyOpen) openStory(s); } else toast((SH2[lang]||SH2.en).gone); }
 window.addEventListener("hashchange",checkDeep);
+
+const GC_SITE="https://forsetinews.goatcounter.com";
+const GCT={en:{t:"Public site, all visitors",total:"Visits",uniq:"Unique visitors",open:"Open full statistics ↗",na:"Live figures aren't available here. Open the full statistics."},
+ ru:{t:"Публичный сайт, все посетители",total:"Визиты",uniq:"Уникальные посетители",open:"Открыть полную статистику ↗",na:"Здесь цифры недоступны. Откройте полную статистику."},
+ fr:{t:"Site public, tous les visiteurs",total:"Visites",uniq:"Visiteurs uniques",open:"Ouvrir les statistiques ↗",na:"Chiffres indisponibles ici. Ouvrez les statistiques."},
+ de:{t:"Öffentliche Seite, alle Besucher",total:"Besuche",uniq:"Eindeutige Besucher",open:"Vollständige Statistik ↗",na:"Zahlen hier nicht verfügbar. Öffnen Sie die Statistik."},
+ es:{t:"Sitio público, todos los visitantes",total:"Visitas",uniq:"Visitantes únicos",open:"Abrir estadísticas ↗",na:"Cifras no disponibles aquí. Abra las estadísticas."},
+ zh:{t:"公开网站，全部访客",total:"访问量",uniq:"独立访客",open:"打开完整统计 ↗",na:"此处无法显示数据，请打开完整统计。"},
+ ar:{t:"الموقع العام، كل الزوار",total:"الزيارات",uniq:"زوار فريدون",open:"فتح الإحصاءات الكاملة ↗",na:"الأرقام غير متاحة هنا. افتح الإحصاءات الكاملة."}};
+let GC=null, gcTried=false;
+function loadGC(){ if(gcTried) return; gcTried=true;
+  fetch(GC_SITE+"/counter/TOTAL.json",{cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{ GC=j; if(view==="control") render(); }).catch(()=>{ GC=false; if(view==="control") render(); }); }
+function gcPanel(){ loadGC(); const g=GCT[lang]||GCT.en;
+  const v=GC?`<div class="cr-grid"><div class="stat"><div class="k">${esc(g.total)}</div><div class="v">${esc(String(GC.count||"0"))}</div></div><div class="stat"><div class="k">${esc(g.uniq)}</div><div class="v">${esc(String(GC.count_unique||"—"))}</div></div></div>`:(GC===false?`<p class="note">${esc(g.na)}</p>`:`<p class="note">…</p>`);
+  return `<div class="panel"><h3>${esc(g.t)}</h3>${v}<p><a href="${GC_SITE}" target="_blank" rel="noopener">${esc(g.open)}</a></p></div>`; }
 render(); loadNews(false); boot();
 </script>
 
+<script data-goatcounter="https://forsetinews.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
