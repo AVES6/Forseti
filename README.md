@@ -1,4 +1,4 @@
-# Forseti
+# Forseti News
 *Every side. One record.*
 
 An independent, AI-powered news outlet summarizing global news based on a diverse portfolio of reliable sources, ensuring neutrality and objectivity. Named after Forseti, the Norse god of justice and reconciliation, in whose hall every dispute was settled.
