@@ -58,16 +58,16 @@
 </head>
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=Cinzel:wght@700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&family=Noto+Naskh+Arabic:wght@400;600&family=Noto+Serif+SC:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cinzel:wght@700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Public+Sans:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;600&family=Noto+Serif+SC:wght@400;600&display=swap">
 <style>
 /* Layout: wire-desk — dark masthead with region row + desk row, briefing board with period dial, dispatch feeds per desk; owner-only Control Room */
 :root{
   --paper:#ffffff; --card:#ffffff; --tint:#f3f7f4; --ink:#14201a; --muted:#56655c; --rule:#d9e2dc;
   --mast:#0f3b28; --mast-fg:#f1f7f3;
   --accent:#1d6b45; --gold:#b08d3c; --war:#b3263a; --money:#8a6200; --power:#6a43a8;
-  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --display:"Marcellus","Trajan Pro",Georgia,serif; --heavy:.028em;
   --body:"Source Serif 4",Georgia,"Times New Roman",serif;
-  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --mono:"Public Sans","Helvetica Neue",Arial,sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#0f1612; --card:#151f19; --tint:#1a261f; --ink:#e3ebe6; --muted:#9db0a4; --rule:#26352c; --mast:#0a2318; --mast-fg:#e3ebe6;
@@ -76,6 +76,7 @@
   --paper:#0f1612; --card:#151f19; --tint:#1a261f; --ink:#e3ebe6; --muted:#9db0a4; --rule:#26352c; --mast:#0a2318; --mast-fg:#e3ebe6;
   --accent:#6fcf97; --gold:#e3b850; --war:#ff7a85; --money:#e3b850; --power:#b9a0f2; color-scheme:dark}
 :root[data-theme="light"]{color-scheme:light}
+:root:lang(ar),:root:lang(zh){--heavy:0}
 :root:lang(ar){--body:"Noto Naskh Arabic","Source Serif 4",serif;--display:"Noto Naskh Arabic","Arial",sans-serif}
 :root:lang(zh){--body:"Noto Serif SC","Source Serif 4",serif;--display:"Noto Serif SC","Arial",sans-serif}
 *{box-sizing:border-box}
@@ -104,7 +105,7 @@ nav.row{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
 nav.regions{border-bottom:1px solid color-mix(in srgb,var(--mast-fg) 18%,transparent)}
 nav.regions button{background:none;border:0;color:color-mix(in srgb,var(--mast-fg) 65%,transparent);font:600 12.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:9px 12px;cursor:pointer;white-space:nowrap;border-radius:4px 4px 0 0}
 nav.regions button[aria-selected="true"]{color:var(--mast);background:var(--mast-fg)}
-nav.desks button{background:none;border:0;color:color-mix(in srgb,var(--mast-fg) 70%,transparent);font:700 17px var(--display);letter-spacing:.06em;text-transform:uppercase;padding:10px 14px 12px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav.desks button{background:none;border:0;color:color-mix(in srgb,var(--mast-fg) 70%,transparent);font:400 15px var(--display);letter-spacing:.14em;text-transform:uppercase;-webkit-text-stroke:var(--heavy) currentColor;padding:10px 14px 12px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
 nav.desks button[aria-selected="true"]{color:var(--mast-fg);border-bottom-color:var(--tab,var(--accent))}
 button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 main{padding-block:28px 40px;min-height:60vh}
@@ -112,7 +113,7 @@ main{padding-block:28px 40px;min-height:60vh}
 h1,h2,h3{text-wrap:balance}
 .deskhead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:22px}
 .deskhead .eyebrow{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.deskhead h1{font-family:var(--display);font-weight:800;font-size:clamp(38px,6vw,60px);line-height:.95;margin:4px 0 0;text-transform:uppercase}
+.deskhead h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,5vw,46px);letter-spacing:.08em;line-height:1.05;margin:6px 0 0;text-transform:uppercase;-webkit-text-stroke:var(--heavy) currentColor}
 .deskhead p{margin:6px 0 0;color:var(--muted);max-width:62ch;font-size:16px}
 .dial{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
 .dial button{font:600 13px var(--mono);border:1px solid var(--rule);background:var(--card);color:var(--ink);padding:8px 12px;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:7px}
@@ -134,7 +135,7 @@ h1,h2,h3{text-wrap:balance}
 .board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 @media (max-width:860px){.board{grid-template-columns:1fr}}
 .col{min-width:0;border-top:4px solid var(--c);padding-top:12px}
-.col h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:24px;letter-spacing:.04em;margin:0 0 10px;color:var(--c)}
+.col h3{font-family:var(--display);font-weight:400;text-transform:uppercase;font-size:20px;letter-spacing:.12em;-webkit-text-stroke:var(--heavy) currentColor;margin:0 0 10px;color:var(--c)}
 .col ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
 .col li{padding-block:12px;border-bottom:1px solid var(--rule)}
 .col li:first-child{padding-top:0}
@@ -174,7 +175,7 @@ footer .copy{font:12px var(--mono);letter-spacing:.03em;margin-top:14px}
 .stat .d{font:12px var(--mono);color:var(--muted)}
 .live-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--money);margin-right:6px;vertical-align:middle}
 .panel{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:18px 20px;margin-bottom:18px;min-width:0}
-.panel h3{font-family:var(--display);font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:22px;margin:0 0 12px}
+.panel h3{font-family:var(--display);font-weight:400;text-transform:uppercase;letter-spacing:.1em;font-size:19px;-webkit-text-stroke:var(--heavy) currentColor;margin:0 0 12px}
 .bars{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:6px;align-items:end;height:150px;border-bottom:1px solid var(--rule)}
 .bars div{background:var(--accent);border-radius:3px 3px 0 0;min-height:2px;position:relative}
 .bars div span{position:absolute;top:-18px;left:0;right:0;text-align:center;font:11px var(--mono);color:var(--muted)}
