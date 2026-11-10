@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Forseti News: independent world news</title>
-<meta name="description" content="Forseti: an independent world news briefing on conflicts, money and politics across Europe, the Americas, Asia & Middle East and Africa, in seven languages.">
+<meta name="description" content="Forseti: an independent world news briefing on conflicts, finance and politics across Europe, the Americas, Asia & Middle East and Africa, in seven languages.">
 <meta property="og:title" content="Forseti News">
 <meta property="og:site_name" content="Forseti News">
 <meta property="og:description" content="Every side. One record. Independent world news briefing in seven languages, updated several times a day.">
@@ -69,6 +69,12 @@ a.hl:hover,a.hl:focus-visible{text-decoration:underline;text-decoration-thicknes
 .det .srcs a{color:var(--accent);text-underline-offset:3px}
 .det .ainote{font:400 12.5px var(--mono);color:var(--muted);margin-top:14px}
 .det .loading{color:var(--muted);font:400 13px var(--mono)}
+
+.tvbox{border:1px solid var(--rule);border-radius:6px;overflow:hidden;background:var(--card);min-height:200px;margin:0 0 10px}
+.tvbox .tvnote{padding:22px;font-size:16px;line-height:1.55;margin:0}
+.tvbox .tvnote a{color:var(--accent)}
+.mk-h{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:26px 0 10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.mk-disc{font:400 13px var(--mono);color:var(--muted);margin:18px 0 0;max-width:80ch}
 </style>
 </head>
 <body>
@@ -285,8 +291,8 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
 const UI={
  en:{updated:"Updated",refresh:"Refresh",refreshing:"Checking…",latest:"You have the latest edition.",newer:"New edition loaded.",fail:"Couldn't reach the newsroom. Check your connection and try again.",
    regions:{worldwide:"Worldwide",eu:"Europe",am:"Americas",as:"Asia & Middle East",af:"Africa"},
-   desks:{brief:"Briefing",war:"Conflicts",money:"Money",power:"Politics"},
-   heads:{brief:"The biggest stories in each section, condensed. Choose a time window.",war:"Wars, strikes and flashpoints.",money:"Markets, central banks, deals, and who got caught cooking the books.",power:"Elections, governments, and the people who run them."},
+   desks:{brief:"Briefing",war:"Conflicts",money:"Finance",power:"Politics"},
+   heads:{brief:"The biggest stories in each section, condensed. Choose a time window.",war:"Wars, strikes and flashpoints.",money:"Markets, central banks, deals and financial fraud.",power:"Elections, governments, and the people who run them."},
    periods:{live:"Live",yday:"Yesterday",week:"This Week",month:"This Month",six:"6 Months",year:"This Year"},
    lead:"Lead story",empty:"No major stories in this window.",src:"Source",top:"Top story",
    sec:{week:"This week",month:"Earlier this month",older:"Earlier this year"},
@@ -295,7 +301,7 @@ const UI={
  ru:{updated:"Обновлено",refresh:"Обновить",refreshing:"Проверяю…",latest:"У вас самый свежий выпуск.",newer:"Загружен новый выпуск.",fail:"Не удалось связаться с редакцией. Проверьте подключение и попробуйте ещё раз.",
    regions:{worldwide:"Весь мир",eu:"Европа",am:"Америки",as:"Азия и Ближний Восток",af:"Африка"},
    desks:{brief:"Сводка",war:"Конфликты",money:"Финансы",power:"Политика"},
-   heads:{brief:"Главное по каждому разделу в сжатом виде. Выберите период.",war:"Войны, удары и горячие точки.",money:"Рынки, центробанки, сделки и те, кого поймали на махинациях.",power:"Выборы, правительства и люди, которые ими руководят."},
+   heads:{brief:"Главное по каждому разделу в сжатом виде. Выберите период.",war:"Войны, удары и горячие точки.",money:"Рынки, центробанки, сделки и финансовые махинации.",power:"Выборы, правительства и люди, которые ими руководят."},
    periods:{live:"Онлайн",yday:"Вчера",week:"Неделя",month:"Месяц",six:"6 месяцев",year:"Год"},
    lead:"Главная новость",empty:"Крупных новостей за этот период нет.",src:"Источник",top:"Главное",
    sec:{week:"Эта неделя",month:"Ранее в этом месяце",older:"Ранее в этом году"},
@@ -329,8 +335,8 @@ const UI_MORE={
   sec:{week:"本周",month:"本月早些时候",older:"今年早些时候"},
   foot:["Forseti 由 Claude 根据每条新闻标注的媒体整理，优先采用彭博社、《金融时报》、《华尔街日报》和《华盛顿邮报》。乌克兰报道也参考 Strana.ua。摘要为本站撰写，原文请点击来源链接。","每天发布数期新版，点击“刷新”加载最新一期。"]},
  ar:{updated:"آخر تحديث",refresh:"تحديث",refreshing:"جارٍ التحقق…",latest:"لديك أحدث إصدار.",newer:"تم تحميل إصدار جديد.",fail:"تعذّر الوصول إلى غرفة الأخبار. تحقق من الاتصال وحاول مجدداً.",day:"نهاري",night:"ليلي",
-  regions:{worldwide:"العالم",eu:"أوروبا",am:"الأمريكتان",as:"آسيا والشرق الأوسط",af:"أفريقيا"},desks:{brief:"الموجز",war:"النزاعات",money:"المال",power:"السياسة"},
-  heads:{brief:"أبرز أخبار كل قسم باختصار. اختر الفترة الزمنية.",war:"حروب وضربات وبؤر توتر.",money:"أسواق وبنوك مركزية وصفقات ومن انكشف تلاعبه.",power:"انتخابات وحكومات ومن يقودها."},
+  regions:{worldwide:"العالم",eu:"أوروبا",am:"الأمريكتان",as:"آسيا والشرق الأوسط",af:"أفريقيا"},desks:{brief:"الموجز",war:"النزاعات",money:"المالية",power:"السياسة"},
+  heads:{brief:"أبرز أخبار كل قسم باختصار. اختر الفترة الزمنية.",war:"حروب وضربات وبؤر توتر.",money:"الأسواق والبنوك المركزية والصفقات والاحتيال المالي.",power:"انتخابات وحكومات ومن يقودها."},
   periods:{live:"مباشر",yday:"أمس",week:"هذا الأسبوع",month:"هذا الشهر",six:"6 أشهر",year:"هذا العام"},lead:"الخبر الرئيسي",empty:"لا أخبار كبرى في هذه الفترة.",src:"المصدر",top:"الأبرز",
   sec:{week:"هذا الأسبوع",month:"في وقت سابق من هذا الشهر",older:"في وقت سابق من هذا العام"},
   foot:["يُعدّ Claude موقع Forseti من المصادر المذكورة مع كل خبر، مع تفضيل بلومبرغ وفايننشال تايمز ووول ستريت جورنال وواشنطن بوست. وتعتمد تغطية أوكرانيا أيضاً على Strana.ua. الملخصات مكتوبة لهذا الموقع؛ والأصل عبر رابط المصدر.","تصدر إصدارات جديدة عدة مرات يومياً. اضغط «تحديث» لتحميل الأحدث."]}
@@ -340,9 +346,56 @@ UI.en.day="Day";UI.en.night="Night";UI.ru.day="День";UI.ru.night="Ночь";
 const LOCALE={en:"en-GB",ru:"ru-RU",fr:"fr-FR",de:"de-DE",es:"es-ES",zh:"zh-CN",ar:"ar-u-nu-latn"};
 const PARIS={en:"Paris",ru:"Париж",fr:"Paris",de:"Paris",es:"París",zh:"巴黎",ar:"باريس"};
 const T=s=>s[lang]||s.en;
-const REG=["worldwide","eu","am","as","af"], DESKS=["brief","war","money","power"];
+
+const MK={
+ en:{name:"Markets",head:"Prices by sector, and the news moving them.",snap:"Snapshot at the latest edition",live:"Live prices",news:"Market-moving news",disc:"Live prices are provided by TradingView and may be delayed. Nothing on this page is investment advice.",blocked:"Live prices are shown on the public site:",g:["Indices","Commodities","Defence","AI & Tech","Banks","Crypto","Currencies & bonds"]},
+ ru:{name:"Биржа",head:"Котировки по секторам и новости, которые двигают рынок.",snap:"Снимок на момент выпуска",live:"Котировки",news:"Новости, двигающие рынок",disc:"Котировки предоставляет TradingView, они могут идти с задержкой. Ничто на этой странице не является инвестиционной рекомендацией.",blocked:"Живые котировки показаны на публичном сайте:",g:["Индексы","Сырьё","Оборонка","ИИ и технологии","Банки","Криптовалюты","Валюты и облигации"]},
+ fr:{name:"Marchés",head:"Les cours par secteur, et l'actualité qui les fait bouger.",snap:"Instantané à la dernière édition",live:"Cours",news:"L'actualité qui fait bouger les marchés",disc:"Cours fournis par TradingView, parfois en différé. Rien sur cette page ne constitue un conseil en investissement.",blocked:"Les cours en direct sont sur le site public :",g:["Indices","Matières premières","Défense","IA et tech","Banques","Crypto","Devises et taux"]},
+ de:{name:"Märkte",head:"Kurse nach Sektoren und die Nachrichten, die sie bewegen.",snap:"Momentaufnahme zur letzten Ausgabe",live:"Kurse",news:"Marktbewegende Nachrichten",disc:"Kurse von TradingView, ggf. verzögert. Nichts auf dieser Seite ist eine Anlageberatung.",blocked:"Live-Kurse gibt es auf der öffentlichen Seite:",g:["Indizes","Rohstoffe","Rüstung","KI & Tech","Banken","Krypto","Devisen & Anleihen"]},
+ es:{name:"Mercados",head:"Cotizaciones por sector y las noticias que las mueven.",snap:"Instantánea de la última edición",live:"Cotizaciones",news:"Noticias que mueven el mercado",disc:"Cotizaciones de TradingView, pueden tener retraso. Nada en esta página es asesoramiento de inversión.",blocked:"Las cotizaciones en directo están en el sitio público:",g:["Índices","Materias primas","Defensa","IA y tecnología","Bancos","Cripto","Divisas y bonos"]},
+ zh:{name:"市场",head:"分行业行情，以及推动行情的新闻。",snap:"最新一期快照",live:"行情",news:"影响市场的新闻",disc:"行情由 TradingView 提供，可能有延迟。本页内容不构成投资建议。",blocked:"实时行情请见公开网站：",g:["指数","大宗商品","国防军工","AI与科技","银行","加密货币","外汇与债券"]},
+ ar:{name:"الأسواق",head:"الأسعار حسب القطاع، والأخبار التي تحركها.",snap:"لقطة عند آخر إصدار",live:"الأسعار",news:"أخبار تحرك الأسواق",disc:"الأسعار مقدمة من TradingView وقد تكون متأخرة. لا شيء في هذه الصفحة يُعد نصيحة استثمارية.",blocked:"الأسعار المباشرة متاحة على الموقع العام:",g:["المؤشرات","السلع","الدفاع","الذكاء الاصطناعي والتقنية","البنوك","العملات المشفرة","العملات والسندات"]}
+};
+Object.keys(UI).forEach(l=>{ const m=MK[l]||MK.en; UI[l].desks.mkt=m.name; UI[l].heads.mkt=m.head; });
+const TV_GROUPS=[
+ [["FOREXCOM:SPXUSD","S&P 500"],["FOREXCOM:NSXUSD","Nasdaq 100"],["FOREXCOM:DJI","Dow Jones"],["INDEX:DEU40","DAX"],["FOREXCOM:FRA40","CAC 40"],["FOREXCOM:UKXGBP","FTSE 100"],["INDEX:NKY","Nikkei 225"],["INDEX:HSI","Hang Seng"]],
+ [["TVC:UKOIL","Brent"],["TVC:USOIL","WTI"],["TVC:GOLD","Gold"],["TVC:SILVER","Silver"],["NYMEX:NG1!","Natural gas"],["COMEX:HG1!","Copper"],["CBOT:ZW1!","Wheat"]],
+ [["NYSE:LMT","Lockheed Martin"],["NYSE:RTX","RTX"],["NYSE:NOC","Northrop Grumman"],["NYSE:GD","General Dynamics"],["XETR:RHM","Rheinmetall"],["LSE:BA.","BAE Systems"],["EURONEXT:HO","Thales"],["MIL:LDO","Leonardo"],["NASDAQ:PLTR","Palantir"]],
+ [["NASDAQ:NVDA","Nvidia"],["NASDAQ:MSFT","Microsoft"],["NASDAQ:GOOGL","Alphabet"],["NASDAQ:META","Meta"],["NASDAQ:AMZN","Amazon"],["NASDAQ:AAPL","Apple"],["NYSE:TSM","TSMC"],["NASDAQ:AVGO","Broadcom"],["NASDAQ:ASML","ASML"],["NASDAQ:AMD","AMD"]],
+ [["NYSE:JPM","JPMorgan"],["NYSE:GS","Goldman Sachs"],["NYSE:BAC","Bank of America"],["NYSE:MS","Morgan Stanley"],["EURONEXT:BNP","BNP Paribas"],["XETR:DBK","Deutsche Bank"],["LSE:HSBA","HSBC"],["MIL:UCG","UniCredit"]],
+ [["BITSTAMP:BTCUSD","Bitcoin"],["BITSTAMP:ETHUSD","Ether"],["BINANCE:SOLUSDT","Solana"],["BINANCE:XRPUSDT","XRP"]],
+ [["FX:EURUSD","EUR/USD"],["FX:GBPUSD","GBP/USD"],["FX:USDJPY","USD/JPY"],["FX:USDCHF","USD/CHF"],["FX_IDC:USDCNY","USD/CNY"],["TVC:DXY","Dollar index"],["TVC:US10Y","US 10Y yield"],["TVC:DE10Y","German 10Y yield"]]
+];
+const TV_LOC={en:"en",ru:"ru",fr:"fr",de:"de_DE",es:"es",zh:"zh_CN",ar:"ar_AE"};
+const PUBLIC_URL="https://aves6.github.io/Forseti/#worldwide-mkt";
+function isDark(){ const t=document.documentElement.getAttribute("data-theme"); return t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches; }
+function renderMarkets(){
+  const u=UI[lang], m=MK[lang]||MK.en;
+  let h=head(u.desks.mkt,u.heads.mkt);
+  const tk=(DATA.markets||{})[region]||[];
+  if(tk.length) h+=`<div class="mk-h"><span>${esc(m.snap)}</span><span>${esc(fmtEdition(DATA.edition))}</span></div><div class="ticker">`+tk.map(t=>`<div><div class="k">${esc(t[0])}</div><div class="v">${esc(t[1])}</div><div class="d ${t[3]||""}">${esc(t[2])}</div></div>`).join("")+`</div>`;
+  h+=`<div class="mk-h"><span>${esc(m.live)}</span></div><div class="tvbox" id="tvHost"></div>`;
+  const news=DATA.stories.filter(s=>s.k==="money"&&inRegion(s)).sort((x,y)=>(dayNum(y.d)-dayNum(x.d))||((y.t||"").localeCompare(x.t||""))||(y.i-x.i)).slice(0,6);
+  if(news.length) h+=`<div class="mk-h"><span>${esc(m.news)}</span></div><div class="feed c-money">`+news.map(s=>`<article class="story"><div class="kicker"><span class="m">${esc(fmtDate(s.d,s.t,s.dl))}</span></div><h2>${hl(s)}</h2><p>${esc(T(s)[1])}</p>${srcLine(s)}</article>`).join("")+`</div>`;
+  return h+`<p class="mk-disc">${esc(m.disc)}</p>`;
+}
+function mountTV(){
+  const host=document.getElementById("tvHost"); if(!host) return;
+  const m=MK[lang]||MK.en, dark=isDark();
+  const ERR={en:"Live prices couldn't load. A browser ad blocker may be stopping them; try allowing this site or reload the page.",ru:"Котировки не загрузились. Возможно, их блокирует блокировщик рекламы: разрешите этот сайт или обновите страницу.",fr:"Les cours n'ont pas pu se charger. Un bloqueur de publicité les bloque peut-être : autorisez ce site ou rechargez la page.",de:"Kurse konnten nicht geladen werden. Vielleicht blockiert ein Werbeblocker sie: Seite erlauben oder neu laden.",es:"No se pudieron cargar las cotizaciones. Puede que un bloqueador de anuncios las impida: permita este sitio o recargue la página.",zh:"行情未能加载，可能被广告拦截插件阻止。请允许本站或刷新页面。",ar:"تعذّر تحميل الأسعار. ربما يحجبها مانع الإعلانات؛ اسمح لهذا الموقع أو أعد تحميل الصفحة."};
+  const pub=/github\.io$|forseti/i.test(location.hostname);
+  const blocked=()=>{ host.innerHTML=pub?`<p class="tvnote">${esc(ERR[lang]||ERR.en)}</p>`:`<p class="tvnote">${esc(m.blocked)} <a href="${PUBLIC_URL}" target="_blank" rel="noopener">aves6.github.io/Forseti ↗</a></p>`; };
+  const cfg={width:"100%",height:640,showSymbolLogo:true,isTransparent:true,colorTheme:dark?"dark":"light",locale:TV_LOC[lang]||"en",
+    symbolsGroups:TV_GROUPS.map((g,i)=>({name:m.g[i],originalName:MK.en.g[i],symbols:g.map(([n,d])=>({name:n,displayName:d}))}))};
+  host.innerHTML=`<div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div></div>`;
+  const sc=document.createElement("script"); sc.src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js"; sc.async=true;
+  sc.textContent=JSON.stringify(cfg); sc.onerror=blocked;
+  try{ host.firstChild.appendChild(sc); }catch(e){ blocked(); }
+}
+new MutationObserver(()=>{ if(view==="news"&&desk==="mkt") mountTV(); }).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+const REG=["worldwide","eu","am","as","af"], DESKS=["brief","war","money","power","mkt"];
 const PER=["live","yday","week","month","six","year"];
-const DCOL={brief:"var(--accent)",war:"var(--war)",money:"var(--money)",power:"var(--power)"};
+const DCOL={brief:"var(--accent)",war:"var(--war)",money:"var(--money)",power:"var(--power)",mkt:"var(--gold)"};
 const CLS={war:"c-war",money:"c-money",power:"c-power"};
 let lang="en", region="worldwide", desk="brief", period="live", view="news";
 let DATA=null, isOwner=false;
@@ -445,7 +498,7 @@ function render(){
   const m=document.getElementById("main");
   if(!DATA){ m.innerHTML=`<div class="loading">…</div>`; return; }
   if(view==="control"&&isOwner) m.innerHTML=renderControl();
-  else { if(view==="control") view="news"; m.innerHTML=desk==="brief"?renderBrief():renderDesk(desk); }
+  else { if(view==="control") view="news"; m.innerHTML=desk==="brief"?renderBrief():desk==="mkt"?renderMarkets():renderDesk(desk); if(desk==="mkt") mountTV(); }
   m.querySelectorAll(".dial button").forEach(b=>b.onclick=()=>{period=b.dataset.p;try{localStorage.setItem("wr-period",period)}catch(e){};render()});
 }
 
@@ -503,12 +556,12 @@ document.getElementById("crBtn").onclick=()=>{view=view==="control"?"news":"cont
 
 const WEL={
  en:{t:"Welcome to Forseti",p:["In Norse myth, Forseti was the god who heard every side of a dispute before a word of judgement was spoken. We built this site in his name.","Our one job is to keep you independently informed about what matters most in the world: conflicts, money and politics, across every region."],lead:"We have no opinion of our own.",rest:"We don't take sides, endorse anyone or tell you what to think. To stay as neutral as we can, every story is built from a diverse range of trusted sources, and every claim is attributed to whoever made it. Each story links to its original source, so you can always check for yourself.",ai:"Forseti is compiled with the help of AI and updated several times a day, in seven languages.",motto:"Every side. One record.",btn:"Start reading",link:"About Forseti"},
- ru:{t:"Добро пожаловать в Forseti",p:["В скандинавских мифах Форсети — бог, который выслушивал все стороны спора, прежде чем произнести хоть слово. Мы назвали сайт в его честь.","Наша единственная задача — независимо информировать вас о самом важном, что происходит в мире: конфликтах, деньгах и политике во всех регионах."],lead:"У нас нет собственного мнения.",rest:"Мы не занимаем ничью сторону, никого не поддерживаем и не говорим вам, что думать. Чтобы оставаться максимально нейтральными, каждую новость мы собираем из множества разнообразных и проверенных источников и всегда указываем, кто именно что заявил. У каждой новости есть ссылка на оригинал, так что вы всегда можете проверить сами.",ai:"Forseti собирается с помощью искусственного интеллекта и обновляется несколько раз в день на семи языках.",motto:"Все стороны. Одна запись.",btn:"Начать чтение",link:"О Forseti"},
- fr:{t:"Bienvenue sur Forseti",p:["Dans la mythologie nordique, Forseti était le dieu qui écoutait chaque partie d'un différend avant de prononcer le moindre jugement. Ce site porte son nom.","Notre seule mission : vous informer de manière indépendante sur ce qui compte le plus dans le monde, conflits, argent et politique, dans toutes les régions."],lead:"Nous n'avons pas d'opinion propre.",rest:"Nous ne prenons parti pour personne, ne soutenons personne et ne vous disons pas quoi penser. Pour rester aussi neutres que possible, chaque article s'appuie sur des sources fiables et variées, et chaque affirmation est attribuée à son auteur. Chaque article renvoie à sa source d'origine : vous pouvez toujours vérifier par vous-même.",ai:"Forseti est réalisé avec l'aide de l'intelligence artificielle et mis à jour plusieurs fois par jour, en sept langues.",motto:"Tous les points de vue. Un seul compte rendu.",btn:"Commencer la lecture",link:"À propos de Forseti"},
- de:{t:"Willkommen bei Forseti",p:["In der nordischen Mythologie war Forseti der Gott, der jede Seite eines Streits anhörte, bevor er ein Urteil sprach. Diese Seite trägt seinen Namen.","Unsere einzige Aufgabe: Sie unabhängig über das Wichtigste in der Welt zu informieren, über Konflikte, Geld und Politik in allen Regionen."],lead:"Wir haben keine eigene Meinung.",rest:"Wir ergreifen keine Partei, unterstützen niemanden und sagen Ihnen nicht, was Sie denken sollen. Um so neutral wie möglich zu bleiben, stützt sich jede Meldung auf vielfältige, vertrauenswürdige Quellen, und jede Aussage wird ihrem Urheber zugeordnet. Jede Meldung verlinkt auf die Originalquelle, damit Sie selbst nachprüfen können.",ai:"Forseti wird mit Hilfe künstlicher Intelligenz erstellt und mehrmals täglich in sieben Sprachen aktualisiert.",motto:"Jede Seite. Ein Protokoll.",btn:"Jetzt lesen",link:"Über Forseti"},
- es:{t:"Bienvenido a Forseti",p:["En la mitología nórdica, Forseti era el dios que escuchaba a todas las partes de una disputa antes de pronunciar su juicio. Este sitio lleva su nombre.","Nuestra única tarea es mantenerte informado de forma independiente sobre lo más importante que ocurre en el mundo: conflictos, dinero y política, en todas las regiones."],lead:"No tenemos opinión propia.",rest:"No tomamos partido, no respaldamos a nadie ni te decimos qué pensar. Para ser lo más neutrales posible, cada noticia se basa en fuentes diversas y fiables, y cada afirmación se atribuye a quien la hizo. Cada noticia enlaza a su fuente original, para que siempre puedas comprobarlo tú mismo.",ai:"Forseti se elabora con ayuda de inteligencia artificial y se actualiza varias veces al día, en siete idiomas.",motto:"Todas las partes. Un solo registro.",btn:"Empezar a leer",link:"Sobre Forseti"},
+ ru:{t:"Добро пожаловать в Forseti",p:["В скандинавских мифах Форсети — бог, который выслушивал все стороны спора, прежде чем произнести хоть слово. Мы назвали сайт в его честь.","Наша единственная задача — независимо информировать вас о самом важном, что происходит в мире: конфликтах, финансах и политике во всех регионах."],lead:"У нас нет собственного мнения.",rest:"Мы не занимаем ничью сторону, никого не поддерживаем и не говорим вам, что думать. Чтобы оставаться максимально нейтральными, каждую новость мы собираем из множества разнообразных и проверенных источников и всегда указываем, кто именно что заявил. У каждой новости есть ссылка на оригинал, так что вы всегда можете проверить сами.",ai:"Forseti собирается с помощью искусственного интеллекта и обновляется несколько раз в день на семи языках.",motto:"Все стороны. Одна запись.",btn:"Начать чтение",link:"О Forseti"},
+ fr:{t:"Bienvenue sur Forseti",p:["Dans la mythologie nordique, Forseti était le dieu qui écoutait chaque partie d'un différend avant de prononcer le moindre jugement. Ce site porte son nom.","Notre seule mission : vous informer de manière indépendante sur ce qui compte le plus dans le monde, conflits, finance et politique, dans toutes les régions."],lead:"Nous n'avons pas d'opinion propre.",rest:"Nous ne prenons parti pour personne, ne soutenons personne et ne vous disons pas quoi penser. Pour rester aussi neutres que possible, chaque article s'appuie sur des sources fiables et variées, et chaque affirmation est attribuée à son auteur. Chaque article renvoie à sa source d'origine : vous pouvez toujours vérifier par vous-même.",ai:"Forseti est réalisé avec l'aide de l'intelligence artificielle et mis à jour plusieurs fois par jour, en sept langues.",motto:"Tous les points de vue. Un seul compte rendu.",btn:"Commencer la lecture",link:"À propos de Forseti"},
+ de:{t:"Willkommen bei Forseti",p:["In der nordischen Mythologie war Forseti der Gott, der jede Seite eines Streits anhörte, bevor er ein Urteil sprach. Diese Seite trägt seinen Namen.","Unsere einzige Aufgabe: Sie unabhängig über das Wichtigste in der Welt zu informieren, über Konflikte, Finanzen und Politik in allen Regionen."],lead:"Wir haben keine eigene Meinung.",rest:"Wir ergreifen keine Partei, unterstützen niemanden und sagen Ihnen nicht, was Sie denken sollen. Um so neutral wie möglich zu bleiben, stützt sich jede Meldung auf vielfältige, vertrauenswürdige Quellen, und jede Aussage wird ihrem Urheber zugeordnet. Jede Meldung verlinkt auf die Originalquelle, damit Sie selbst nachprüfen können.",ai:"Forseti wird mit Hilfe künstlicher Intelligenz erstellt und mehrmals täglich in sieben Sprachen aktualisiert.",motto:"Jede Seite. Ein Protokoll.",btn:"Jetzt lesen",link:"Über Forseti"},
+ es:{t:"Bienvenido a Forseti",p:["En la mitología nórdica, Forseti era el dios que escuchaba a todas las partes de una disputa antes de pronunciar su juicio. Este sitio lleva su nombre.","Nuestra única tarea es mantenerte informado de forma independiente sobre lo más importante que ocurre en el mundo: conflictos, finanzas y política, en todas las regiones."],lead:"No tenemos opinión propia.",rest:"No tomamos partido, no respaldamos a nadie ni te decimos qué pensar. Para ser lo más neutrales posible, cada noticia se basa en fuentes diversas y fiables, y cada afirmación se atribuye a quien la hizo. Cada noticia enlaza a su fuente original, para que siempre puedas comprobarlo tú mismo.",ai:"Forseti se elabora con ayuda de inteligencia artificial y se actualiza varias veces al día, en siete idiomas.",motto:"Todas las partes. Un solo registro.",btn:"Empezar a leer",link:"Sobre Forseti"},
  zh:{t:"欢迎来到 Forseti",p:["在北欧神话中，福尔塞提是一位在作出任何裁决之前都会倾听争端各方的神。本站以他的名字命名。","我们唯一的使命，是让您独立地了解世界上最重要的事：各地区的冲突、财经与政治。"],lead:"我们没有自己的立场。",rest:"我们不偏袒任何一方，不为任何人背书，也不告诉您该怎么想。为了尽可能保持中立，每条新闻都基于多元而可信的信息来源，每一个说法都注明出处。每条新闻都附有原始来源链接，您随时可以自行核实。",ai:"Forseti 借助人工智能编写，每天以七种语言更新数次。",motto:"兼听各方，一份记录。",btn:"开始阅读",link:"关于 Forseti"},
- ar:{t:"مرحباً بكم في Forseti",p:["في الأساطير الإسكندنافية، كان فورسيتي الإله الذي يستمع إلى جميع أطراف النزاع قبل أن ينطق بأي حكم. وقد سمّينا هذا الموقع باسمه.","مهمتنا الوحيدة أن نُبقيكم على اطلاع مستقل بأهم ما يجري في العالم: النزاعات والمال والسياسة في كل المناطق."],lead:"ليس لدينا رأي خاص بنا.",rest:"لا ننحاز إلى أي طرف ولا ندعم أحداً ولا نملي عليكم ما تفكرون فيه. وللبقاء محايدين قدر الإمكان، يُبنى كل خبر على مصادر متنوعة وموثوقة، ويُنسب كل تصريح إلى صاحبه. ويرتبط كل خبر بمصدره الأصلي، لتتمكنوا دائماً من التحقق بأنفسكم.",ai:"يُعدّ Forseti بمساعدة الذكاء الاصطناعي ويُحدَّث عدة مرات يومياً بسبع لغات.",motto:"كل الأطراف. سجل واحد.",btn:"ابدأ القراءة",link:"عن Forseti"}
+ ar:{t:"مرحباً بكم في Forseti",p:["في الأساطير الإسكندنافية، كان فورسيتي الإله الذي يستمع إلى جميع أطراف النزاع قبل أن ينطق بأي حكم. وقد سمّينا هذا الموقع باسمه.","مهمتنا الوحيدة أن نُبقيكم على اطلاع مستقل بأهم ما يجري في العالم: النزاعات والشؤون المالية والسياسة في كل المناطق."],lead:"ليس لدينا رأي خاص بنا.",rest:"لا ننحاز إلى أي طرف ولا ندعم أحداً ولا نملي عليكم ما تفكرون فيه. وللبقاء محايدين قدر الإمكان، يُبنى كل خبر على مصادر متنوعة وموثوقة، ويُنسب كل تصريح إلى صاحبه. ويرتبط كل خبر بمصدره الأصلي، لتتمكنوا دائماً من التحقق بأنفسكم.",ai:"يُعدّ Forseti بمساعدة الذكاء الاصطناعي ويُحدَّث عدة مرات يومياً بسبع لغات.",motto:"كل الأطراف. سجل واحد.",btn:"ابدأ القراءة",link:"عن Forseti"}
 };
 let welcomeOpen=false, welcomeReturn=null;
 function renderWelcome(){ const w=WEL[lang]||WEL.en;
