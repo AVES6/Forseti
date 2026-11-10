@@ -94,6 +94,20 @@ a.hl:hover,a.hl:focus-visible{text-decoration:underline;text-decoration-thicknes
 @media (max-width:620px){.mk-an dl{grid-template-columns:1fr}.mk-an dt{border-bottom:0;padding-bottom:0}.mk-an{padding:16px 16px 14px}}
 .mk-an .srcs{font:500 13px var(--mono);color:var(--muted);margin:12px 0 0;display:flex;flex-wrap:wrap;gap:4px 12px}
 .mk-an .srcs a{color:var(--accent);text-underline-offset:3px}
+
+.ctpanel{max-width:520px;text-align:start}
+.ctpanel h2{text-align:center}
+.ctintro{font-size:16px;line-height:1.55;color:var(--muted);margin:0 0 18px;text-align:center}
+.ctlist{display:flex;flex-direction:column;gap:12px;margin:0 0 20px}
+.ctitem{border:1px solid var(--rule);border-radius:8px;padding:14px 16px;background:var(--card)}
+.ctitem h3{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+.ctitem p{font-size:15.5px;line-height:1.5;margin:0 0 10px}
+.ctrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ctrow a{font:600 15px var(--mono);color:var(--ink);text-decoration:none;word-break:break-all;margin-inline-end:auto}
+.ctrow a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.ctrow button{font:600 12px var(--mono);border:1px solid var(--rule);background:none;color:var(--ink);border-radius:5px;padding:0 12px;min-height:36px;cursor:pointer}
+.ctrow button:hover{border-color:var(--accent);color:var(--accent)}
+.ctpanel #ctClose{display:block;margin:0 auto}
 </style>
 </head>
 <body>
@@ -288,6 +302,7 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
 <div class="shgrid" id="shGrid"></div>
 <button class="linkbtn" id="shClose"></button>
 </div></div>
+<div class="welcome" id="contact" hidden role="dialog" aria-modal="true" aria-labelledby="ctTitle"><div class="wpanel ctpanel"><h2 id="ctTitle"></h2><p class="ctintro" id="ctIntro"></p><div class="ctlist" id="ctList"></div><button class="linkbtn" id="ctClose"></button></div></div>
 <div class="welcome" id="welcome" hidden role="dialog" aria-modal="true" aria-labelledby="wTitle"><div class="wpanel"><svg class="seal" viewBox="0 0 260 260" aria-hidden="true">
 <circle cx="130" cy="130" r="124" fill="none" stroke-width="4" style="stroke:var(--accent)"/>
 <circle cx="130" cy="130" r="98" fill="none" stroke-width="2" style="stroke:var(--accent)"/>
@@ -462,8 +477,8 @@ function renderChrome(){
   document.getElementById("desks").innerHTML=DESKS.map(d=>`<button role="tab" id="desk-${d}" data-d="${d}" style="--tab:${DCOL[d]}" aria-selected="${view==="news"&&d===desk}">${u.desks[d]}</button>`).join("");
   document.querySelectorAll("#regions button").forEach(b=>b.onclick=()=>{region=b.dataset.r;view="news";go()});
   document.querySelectorAll("#desks button").forEach(b=>b.onclick=()=>{desk=b.dataset.d;view="news";go()});
-  document.getElementById("foot").innerHTML=u.foot.map(p=>`<p>${esc(p)}</p>`).join("")+`<p><button class="linkbtn" id="aboutBtn">${esc((WEL[lang]||WEL.en).link)}</button></p><p class="copy">© 2026 Forseti / AVES6. All rights reserved.</p>`;
-  document.getElementById("aboutBtn").onclick=openWelcome; if(welcomeOpen) renderWelcome();
+  document.getElementById("foot").innerHTML=u.foot.map(p=>`<p>${esc(p)}</p>`).join("")+`<p><button class="linkbtn" id="aboutBtn">${esc((WEL[lang]||WEL.en).link)}</button> · <button class="linkbtn" id="contactBtn">${esc((CT[lang]||CT.en).link)}</button></p><p class="copy">© 2026 Forseti / AVES6. All rights reserved.</p>`;
+  document.getElementById("aboutBtn").onclick=openWelcome; document.getElementById("contactBtn").onclick=openContact; if(contactOpen) renderContact(); if(welcomeOpen) renderWelcome();
 }
 function go(){ try{history.replaceState(null,"","#"+(view==="control"?"control":region+"-"+desk))}catch(e){} render(); window.scrollTo({top:0}); }
 
@@ -735,6 +750,31 @@ function detHTML(s){ const t=DT[lang]||DT.en;
   if(L.length) h+=`<h3>${esc(t.srcs)}</h3><ul class="srcs">${L.map(l=>`<li><a href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[0])} ↗</a></li>`).join("")}</ul>`;
   return h+`<p class="ainote">${esc(t.ai)}</p></div>`; }
 document.getElementById("main").addEventListener("click",e=>{ const a=e.target.closest("a.hl"); if(!a||e.metaKey||e.ctrlKey||e.shiftKey||e.button) return; const s=findStory(a.dataset.open); if(!s) return; e.preventDefault(); openStory(s); });
+
+const CT={
+ en:{link:"Contact",t:"Contact Forseti",intro:"We read every message.",g:"General",gd:"Questions, feedback, corrections and anything else about the site.",b:"Business",bd:"Business proposals, sponsorship and advertising.",copy:"Copy",copied:"Copied",close:"Close"},
+ ru:{link:"Контакты",t:"Связаться с Forseti",intro:"Мы читаем каждое сообщение.",g:"Общие вопросы",gd:"Вопросы, отзывы, исправления и всё остальное о сайте.",b:"Для бизнеса",bd:"Деловые предложения, спонсорство и реклама.",copy:"Копировать",copied:"Скопировано",close:"Закрыть"},
+ fr:{link:"Contact",t:"Contacter Forseti",intro:"Nous lisons chaque message.",g:"Général",gd:"Questions, avis, corrections et tout ce qui concerne le site.",b:"Partenariats",bd:"Propositions commerciales, sponsoring et publicité.",copy:"Copier",copied:"Copié",close:"Fermer"},
+ de:{link:"Kontakt",t:"Forseti kontaktieren",intro:"Wir lesen jede Nachricht.",g:"Allgemein",gd:"Fragen, Feedback, Korrekturen und alles andere rund um die Seite.",b:"Geschäftlich",bd:"Geschäftsanfragen, Sponsoring und Werbung.",copy:"Kopieren",copied:"Kopiert",close:"Schließen"},
+ es:{link:"Contacto",t:"Contactar con Forseti",intro:"Leemos todos los mensajes.",g:"General",gd:"Preguntas, comentarios, correcciones y cualquier otra cosa sobre el sitio.",b:"Empresas",bd:"Propuestas comerciales, patrocinio y publicidad.",copy:"Copiar",copied:"Copiado",close:"Cerrar"},
+ zh:{link:"联系我们",t:"联系 Forseti",intro:"每一条消息我们都会阅读。",g:"一般事务",gd:"关于本站的问题、反馈、更正及其他事项。",b:"商务合作",bd:"商务提案、赞助与广告。",copy:"复制",copied:"已复制",close:"关闭"},
+ ar:{link:"اتصل بنا",t:"تواصل مع Forseti",intro:"نقرأ كل رسالة.",g:"عام",gd:"الأسئلة والملاحظات والتصحيحات وكل ما يخص الموقع.",b:"الأعمال",bd:"العروض التجارية والرعاية والإعلان.",copy:"نسخ",copied:"تم النسخ",close:"إغلاق"}
+};
+const CT_MAIL={g:"contact@forsetinews.com",b:"business@forsetinews.com"};
+let contactOpen=false, contactReturn=null;
+function renderContact(){ const c=CT[lang]||CT.en;
+  document.getElementById("ctTitle").textContent=c.t;
+  document.getElementById("ctIntro").textContent=c.intro;
+  document.getElementById("ctClose").textContent=c.close;
+  document.getElementById("ctList").innerHTML=["g","b"].map(k=>`<div class="ctitem"><h3>${esc(c[k])}</h3><p>${esc(c[k+"d"])}</p><div class="ctrow"><a href="mailto:${CT_MAIL[k]}">${CT_MAIL[k]}</a><button data-mail="${CT_MAIL[k]}">${esc(c.copy)}</button></div></div>`).join("");
+  document.querySelectorAll("#ctList button").forEach(b=>b.onclick=async()=>{ let ok=false; try{ await navigator.clipboard.writeText(b.dataset.mail); ok=true }catch(e){}
+    if(!ok){ try{ const r=document.createRange(); r.selectNodeContents(b.previousElementSibling); const s=getSelection(); s.removeAllRanges(); s.addRange(r); ok=document.execCommand("copy") }catch(e){} }
+    if(ok){ b.textContent="✓ "+c.copied; setTimeout(()=>{ if(contactOpen) b.textContent=c.copy },2000); } }); }
+function openContact(){ contactReturn=document.activeElement; renderContact(); document.getElementById("contact").hidden=false; contactOpen=true; document.body.style.overflow="hidden"; setTimeout(()=>document.getElementById("ctClose").focus({preventScroll:true}),30); }
+function closeContact(){ document.getElementById("contact").hidden=true; contactOpen=false; document.body.style.overflow=""; if(contactReturn&&contactReturn.focus) try{contactReturn.focus()}catch(e){} }
+document.getElementById("ctClose").onclick=closeContact;
+document.getElementById("contact").addEventListener("click",e=>{ if(e.target.id==="contact") closeContact(); });
+document.addEventListener("keydown",e=>{ if(contactOpen&&e.key==="Escape") closeContact(); });
 render(); loadNews(false); boot();
 </script>
 
