@@ -703,13 +703,13 @@ function gcPanel(){ loadGC(); const g=GCT[lang]||GCT.en;
   return `<div class="panel"><h3>${esc(g.t)}</h3>${v}<p><a href="${GC_SITE}" target="_blank" rel="noopener">${esc(g.open)}</a></p></div>`; }
 
 const DT={
- en:{key:"Key points",sides:"What each side says",ctx:"Background",next:"What comes next",srcs:"Sources",ai:"Summary compiled by AI from the sources listed. Check the originals for full detail.",load:"Loading the full summary…"},
- ru:{key:"Главное",sides:"Что говорят стороны",ctx:"Контекст",next:"Что дальше",srcs:"Источники",ai:"Пересказ составлен ИИ по указанным источникам. Подробности смотрите в оригиналах.",load:"Загружаем подробный пересказ…"},
- fr:{key:"L'essentiel",sides:"Ce que dit chaque partie",ctx:"Contexte",next:"Et ensuite",srcs:"Sources",ai:"Résumé rédigé par IA à partir des sources citées. Consultez les originaux pour plus de détails.",load:"Chargement du résumé complet…"},
- de:{key:"Das Wichtigste",sides:"Was die Seiten sagen",ctx:"Hintergrund",next:"Wie es weitergeht",srcs:"Quellen",ai:"Zusammenfassung von KI aus den genannten Quellen erstellt. Details in den Originalen.",load:"Ausführliche Zusammenfassung wird geladen…"},
- es:{key:"Lo esencial",sides:"Qué dice cada parte",ctx:"Contexto",next:"Qué viene ahora",srcs:"Fuentes",ai:"Resumen elaborado por IA a partir de las fuentes citadas. Consulte los originales para más detalle.",load:"Cargando el resumen completo…"},
- zh:{key:"要点",sides:"各方说法",ctx:"背景",next:"后续看点",srcs:"来源",ai:"摘要由人工智能根据所列来源编写，详情请参阅原文。",load:"正在加载详细摘要…"},
- ar:{key:"أبرز النقاط",sides:"ما يقوله كل طرف",ctx:"الخلفية",next:"ما التالي",srcs:"المصادر",ai:"ملخص أعدّه الذكاء الاصطناعي من المصادر المذكورة. راجع الأصل للتفاصيل الكاملة.",load:"جارٍ تحميل الملخص المفصل…"}
+ en:{none:"A detailed summary of this story is not ready yet. It will appear with a coming edition.",key:"Key points",sides:"What each side says",ctx:"Background",next:"What comes next",srcs:"Sources",ai:"Summary compiled by AI from the sources listed. Check the originals for full detail.",load:"Loading the full summary…"},
+ ru:{none:"Подробный пересказ этой новости ещё готовится и появится в одном из ближайших выпусков.",key:"Главное",sides:"Что говорят стороны",ctx:"Контекст",next:"Что дальше",srcs:"Источники",ai:"Пересказ составлен ИИ по указанным источникам. Подробности смотрите в оригиналах.",load:"Загружаем подробный пересказ…"},
+ fr:{none:"Le résumé détaillé de cet article n'est pas encore prêt. Il paraîtra dans une prochaine édition.",key:"L'essentiel",sides:"Ce que dit chaque partie",ctx:"Contexte",next:"Et ensuite",srcs:"Sources",ai:"Résumé rédigé par IA à partir des sources citées. Consultez les originaux pour plus de détails.",load:"Chargement du résumé complet…"},
+ de:{none:"Die ausführliche Zusammenfassung dieser Meldung ist noch nicht fertig. Sie erscheint mit einer der nächsten Ausgaben.",key:"Das Wichtigste",sides:"Was die Seiten sagen",ctx:"Hintergrund",next:"Wie es weitergeht",srcs:"Quellen",ai:"Zusammenfassung von KI aus den genannten Quellen erstellt. Details in den Originalen.",load:"Ausführliche Zusammenfassung wird geladen…"},
+ es:{none:"El resumen detallado de esta noticia aún no está listo. Aparecerá en una próxima edición.",key:"Lo esencial",sides:"Qué dice cada parte",ctx:"Contexto",next:"Qué viene ahora",srcs:"Fuentes",ai:"Resumen elaborado por IA a partir de las fuentes citadas. Consulte los originales para más detalle.",load:"Cargando el resumen completo…"},
+ zh:{none:"这条新闻的详细摘要尚在准备中，将在后续版本中发布。",key:"要点",sides:"各方说法",ctx:"背景",next:"后续看点",srcs:"来源",ai:"摘要由人工智能根据所列来源编写，详情请参阅原文。",load:"正在加载详细摘要…"},
+ ar:{none:"الملخص المفصل لهذا الخبر لم يجهز بعد، وسيظهر في أحد الإصدارات القادمة.",key:"أبرز النقاط",sides:"ما يقوله كل طرف",ctx:"الخلفية",next:"ما التالي",srcs:"المصادر",ai:"ملخص أعدّه الذكاء الاصطناعي من المصادر المذكورة. راجع الأصل للتفاصيل الكاملة.",load:"جارٍ تحميل الملخص المفصل…"}
 };
 let DET=null, detP=null, detEd=null;
 function loadDet(){ const ed=DATA&&DATA.edition; if(detP&&detEd===ed) return detP; detEd=ed;
@@ -719,8 +719,9 @@ function hl(s){ return `<a class="hl" href="#s=${encodeURIComponent(s.id)}" data
 function safeUrl(u){ return /^https?:\/\//i.test(String(u||""))?String(u):null; }
 function detHTML(s){ const t=DT[lang]||DT.en;
   if(!DET) return `<div class="det"><p class="loading">${esc(t.load)}</p></div>`;
-  const d=DET[s.id]; if(!d) return "";
-  const x=d[lang]||d.en; if(!x) return "";
+  const none=`<div class="det"><p class="loading">${esc(t.none)}</p></div>`;
+  const d=DET[s.id]; if(!d) return none;
+  const x=d[lang]||d.en; if(!x) return none;
   let h=`<div class="det">`;
   if(Array.isArray(x.p)&&x.p.length) h+=`<h3>${esc(t.key)}</h3><ul>${x.p.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>`;
   if(Array.isArray(x.w)&&x.w.length) h+=`<h3>${esc(t.sides)}</h3><ul class="sides">${x.w.map(w=>`<li><b>${esc(w[0])}:</b> ${esc(w[1])}</li>`).join("")}</ul>`;
