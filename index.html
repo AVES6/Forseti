@@ -75,6 +75,21 @@ a.hl:hover,a.hl:focus-visible{text-decoration:underline;text-decoration-thicknes
 .tvbox .tvnote a{color:var(--accent)}
 .mk-h{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:26px 0 10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .mk-disc{font:400 13px var(--mono);color:var(--muted);margin:18px 0 0;max-width:80ch}
+
+.mk-an{border:2px solid color-mix(in srgb,var(--accent) 45%,transparent);background:color-mix(in srgb,var(--accent) 6%,var(--card));border-radius:8px;padding:20px 22px 18px;margin:0 0 6px}
+.mk-an .top{display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap;margin:0 0 10px}
+.mk-an .rec{font:600 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:var(--paper);border-radius:99px;padding:4px 10px}
+.mk-an .asof{font:400 12px var(--mono);color:var(--muted)}
+.mk-an .eyebrow{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 4px}
+.mk-an h2{font-weight:600;font-size:clamp(22px,3vw,28px);line-height:1.2;margin:0 0 8px;text-wrap:balance}
+.mk-an .lede{font-size:17px;line-height:1.55;margin:0 0 14px;max-width:75ch}
+.mk-an dl{margin:0;display:grid;grid-template-columns:minmax(140px,190px) minmax(0,1fr);gap:0;border-top:1px solid var(--rule)}
+.mk-an dt,.mk-an dd{margin:0;padding:11px 0;border-bottom:1px solid var(--rule)}
+.mk-an dt{font:600 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding-inline-end:14px;padding-top:14px}
+.mk-an dd{font-size:16px;line-height:1.55}
+@media (max-width:620px){.mk-an dl{grid-template-columns:1fr}.mk-an dt{border-bottom:0;padding-bottom:0}.mk-an{padding:16px 16px 14px}}
+.mk-an .srcs{font:500 13px var(--mono);color:var(--muted);margin:12px 0 0;display:flex;flex-wrap:wrap;gap:4px 12px}
+.mk-an .srcs a{color:var(--accent);text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -369,9 +384,24 @@ const TV_GROUPS=[
 const TV_LOC={en:"en",ru:"ru",fr:"fr",de:"de_DE",es:"es",zh:"zh_CN",ar:"ar_AE"};
 const PUBLIC_URL="https://aves6.github.io/Forseti/#worldwide-mkt";
 function isDark(){ const t=document.documentElement.getAttribute("data-theme"); return t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches; }
+
+const MKA={en:{rec:"Recommended read",eb:"Forseti analysis",t:"Our analysis of today's markets",asof:"As of",src:"Sources"},
+ ru:{rec:"Рекомендуем прочитать",eb:"Аналитика Forseti",t:"Наш анализ рынков за день",asof:"По состоянию на",src:"Источники"},
+ fr:{rec:"À lire",eb:"Analyse Forseti",t:"Notre analyse des marchés du jour",asof:"Au",src:"Sources"},
+ de:{rec:"Lesetipp",eb:"Forseti-Analyse",t:"Unsere Analyse der Märkte heute",asof:"Stand",src:"Quellen"},
+ es:{rec:"Lectura recomendada",eb:"Análisis de Forseti",t:"Nuestro análisis de los mercados de hoy",asof:"Actualizado",src:"Fuentes"},
+ zh:{rec:"推荐阅读",eb:"Forseti 分析",t:"今日市场分析",asof:"截至",src:"来源"},
+ ar:{rec:"قراءة موصى بها",eb:"تحليل Forseti",t:"تحليلنا لأسواق اليوم",asof:"حتى",src:"المصادر"}};
+function analysisHTML(){ const A=DATA&&DATA.analysis; if(!A) return ""; const x=A[lang]||A.en; if(!x) return "";
+  const t=MKA[lang]||MKA.en, S=Array.isArray(x.s)?x.s.filter(r=>Array.isArray(r)&&r[0]&&r[1]):[];
+  const L=(Array.isArray(A.l)?A.l:[]).filter(l=>Array.isArray(l)&&/^https?:\/\//i.test(String(l[1]||"")));
+  return `<section class="mk-an" aria-label="${esc(t.t)}"><div class="top"><span class="rec">${esc(t.rec)}</span><span class="asof">${esc(t.asof)} ${esc(fmtDate(A.d,A.t,A.dl))}</span></div>`+
+   `<div class="eyebrow">${esc(t.eb)}</div><h2>${esc(x.h||t.t)}</h2>`+(x.x?`<p class="lede">${esc(x.x)}</p>`:"")+
+   (S.length?`<dl>${S.map(r=>`<dt>${esc(r[0])}</dt><dd>${esc(r[1])}</dd>`).join("")}</dl>`:"")+
+   (L.length?`<div class="srcs"><span>${esc(t.src)}:</span>${L.map(l=>`<a href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[0])}</a>`).join("")}</div>`:"")+`</section>`; }
 function renderMarkets(){
   const u=UI[lang], m=MK[lang]||MK.en;
-  let h=head(u.desks.mkt,u.heads.mkt);
+  let h=head(u.desks.mkt,u.heads.mkt)+analysisHTML();
   const tk=(DATA.markets||{})[region]||[];
   if(tk.length) h+=`<div class="mk-h"><span>${esc(m.snap)}</span><span>${esc(fmtEdition(DATA.edition))}</span></div><div class="ticker">`+tk.map(t=>`<div><div class="k">${esc(t[0])}</div><div class="v">${esc(t[1])}</div><div class="d ${t[3]||""}">${esc(t[2])}</div></div>`).join("")+`</div>`;
   h+=`<div class="mk-h"><span>${esc(m.live)}</span></div><div class="tvbox" id="tvHost"></div>`;
@@ -395,7 +425,7 @@ function mountTV(){
 new MutationObserver(()=>{ if(view==="news"&&desk==="mkt") mountTV(); }).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
 const REG=["worldwide","eu","am","as","af"], DESKS=["brief","war","money","power","mkt"];
 const PER=["live","yday","week","month","six","year"];
-const DCOL={brief:"var(--accent)",war:"var(--war)",money:"var(--money)",power:"var(--power)",mkt:"var(--gold)"};
+const DCOL={brief:"var(--accent)",war:"var(--war)",money:"var(--money)",power:"var(--power)",mkt:"var(--accent)"};
 const CLS={war:"c-war",money:"c-money",power:"c-power"};
 let lang="en", region="worldwide", desk="brief", period="live", view="news";
 let DATA=null, isOwner=false;
