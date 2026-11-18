@@ -15,7 +15,12 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0f3b28">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="apple-touch-icon" href="favicon.svg">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Forseti">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="copyright" content="© 2026 Forseti / AVES6. All rights reserved.">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}
 .welcome{position:fixed;inset:0;z-index:30;background:color-mix(in srgb,var(--ink) 55%,transparent);display:flex;align-items:center;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
@@ -108,6 +113,22 @@ a.hl:hover,a.hl:focus-visible{text-decoration:underline;text-decoration-thicknes
 .ctrow button{font:600 12px var(--mono);border:1px solid var(--rule);background:none;color:var(--ink);border-radius:5px;padding:0 12px;min-height:36px;cursor:pointer}
 .ctrow button:hover{border-color:var(--accent);color:var(--accent)}
 .ctpanel #ctClose{display:block;margin:0 auto}
+
+.appanel{max-width:480px;text-align:start}
+.appanel .apicon{display:block;width:72px;height:72px;border-radius:16px;margin:0 auto 12px}
+.appanel h2{text-align:center}
+.apintro{text-align:center;color:var(--muted);font-size:16px;line-height:1.55;margin:0 0 16px}
+.apstep{border:1px solid var(--rule);border-radius:8px;padding:14px 16px;margin:0 0 12px;background:var(--card)}
+.apstep h3{font:600 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.apstep ol{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:4px;font-size:15.5px;line-height:1.5}
+.apinstall{display:block;width:100%;margin:0 0 12px}
+.appanel #apClose{display:block;margin:6px auto 0}
+.apbar{position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;align-items:center;gap:10px;background:var(--mast);color:var(--mast-fg);
+  padding:10px max(14px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-left,0px));box-shadow:0 -6px 24px rgba(0,0,0,.18)}
+.apbar img{border-radius:8px;flex:none}
+.apbar span{flex:1;min-width:0;font:500 14px/1.35 var(--mono)}
+.apbar .wbtn{background:var(--mast-fg);color:var(--mast);padding:0 14px;min-height:38px;white-space:nowrap}
+.apx{background:none;border:0;color:var(--mast-fg);font-size:24px;line-height:1;cursor:pointer;padding:4px 6px;min-height:38px}
 </style>
 </head>
 <body>
@@ -303,6 +324,8 @@ td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
 <button class="linkbtn" id="shClose"></button>
 </div></div>
 <div class="welcome" id="contact" hidden role="dialog" aria-modal="true" aria-labelledby="ctTitle"><div class="wpanel ctpanel"><h2 id="ctTitle"></h2><p class="ctintro" id="ctIntro"></p><div class="ctlist" id="ctList"></div><button class="linkbtn" id="ctClose"></button></div></div>
+<div class="welcome" id="appdlg" hidden role="dialog" aria-modal="true" aria-labelledby="apTitle"><div class="wpanel appanel"><img class="apicon" src="icons/icon-192.png" alt="" width="72" height="72"><h2 id="apTitle"></h2><p class="apintro" id="apIntro"></p><div id="apBody"></div><button class="linkbtn" id="apClose"></button></div></div>
+<div class="apbar" id="apbar" hidden><img src="icons/icon-192.png" alt="" width="36" height="36"><span id="apbarTxt"></span><button class="wbtn" id="apbarGo"></button><button class="apx" id="apbarX" aria-label="Close">×</button></div>
 <div class="welcome" id="welcome" hidden role="dialog" aria-modal="true" aria-labelledby="wTitle"><div class="wpanel"><svg class="seal" viewBox="0 0 260 260" aria-hidden="true">
 <circle cx="130" cy="130" r="124" fill="none" stroke-width="4" style="stroke:var(--accent)"/>
 <circle cx="130" cy="130" r="98" fill="none" stroke-width="2" style="stroke:var(--accent)"/>
@@ -477,8 +500,8 @@ function renderChrome(){
   document.getElementById("desks").innerHTML=DESKS.map(d=>`<button role="tab" id="desk-${d}" data-d="${d}" style="--tab:${DCOL[d]}" aria-selected="${view==="news"&&d===desk}">${u.desks[d]}</button>`).join("");
   document.querySelectorAll("#regions button").forEach(b=>b.onclick=()=>{region=b.dataset.r;view="news";go()});
   document.querySelectorAll("#desks button").forEach(b=>b.onclick=()=>{desk=b.dataset.d;view="news";go()});
-  document.getElementById("foot").innerHTML=u.foot.map(p=>`<p>${esc(p)}</p>`).join("")+`<p><button class="linkbtn" id="aboutBtn">${esc((WEL[lang]||WEL.en).link)}</button> · <button class="linkbtn" id="contactBtn">${esc((CT[lang]||CT.en).link)}</button></p><p class="copy">© 2026 Forseti / AVES6. All rights reserved.</p>`;
-  document.getElementById("aboutBtn").onclick=openWelcome; document.getElementById("contactBtn").onclick=openContact; if(contactOpen) renderContact(); if(welcomeOpen) renderWelcome();
+  document.getElementById("foot").innerHTML=u.foot.map(p=>`<p>${esc(p)}</p>`).join("")+`<p><button class="linkbtn" id="aboutBtn">${esc((WEL[lang]||WEL.en).link)}</button> · <button class="linkbtn" id="contactBtn">${esc((CT[lang]||CT.en).link)}</button> · <button class="linkbtn" id="appBtn">${esc((AP[lang]||AP.en).link)}</button></p><p class="copy">© 2026 Forseti / AVES6. All rights reserved.</p>`;
+  document.getElementById("aboutBtn").onclick=openWelcome; document.getElementById("contactBtn").onclick=openContact; document.getElementById("appBtn").onclick=openApp; if(appOpen) renderApp(); if(!document.getElementById("apbar").hidden) renderBar(); if(contactOpen) renderContact(); if(welcomeOpen) renderWelcome();
 }
 function go(){ try{history.replaceState(null,"","#"+(view==="control"?"control":region+"-"+desk))}catch(e){} render(); window.scrollTo({top:0}); }
 
@@ -492,10 +515,13 @@ function renderBrief(){
   h+=`<div class="dial" role="group" aria-label="Period">`+PER.map(p=>`<button id="p-${p}" data-p="${p}" aria-pressed="${p===period}">${p==="live"?'<span class="dot"></span>':""}${u.periods[p]}</button>`).join("")+`</div>`;
   const tk=(DATA.markets||{})[region]||[];
   if(tk.length) h+=`<div class="ticker">`+tk.map(t=>`<div><div class="k">${esc(t[0])}</div><div class="v">${esc(t[1])}</div><div class="d ${t[3]||""}">${esc(t[2])}</div></div>`).join("")+`</div>`;
-  const lead=pool[0];
+  const recent=k=>DATA.stories.filter(s=>(!k||s.k===k)&&dayNum(s.d)<=b).sort((x,y)=>(dayNum(y.d)-dayNum(x.d))||(y.i-x.i)||((y.t||"").localeCompare(x.t||"")));
+  const lead=pool[0]||recent().filter(inRegion)[0]||recent()[0];
   if(lead){ h+=`<section class="lead ${CLS[lead.k]}"><div class="kicker"><span>${u.lead} · ${u.desks[lead.k]}</span><span class="m">${esc(fmtDate(lead.d,lead.t,lead.dl))}</span></div><h2>${hl(lead)}</h2><p>${esc(T(lead)[1])}</p>${srcLine(lead)}</section>`; }
   h+=`<div class="board">`+["war","money","power"].map(k=>{
     const items=pool.filter(s=>s.k===k&&s!==lead).slice(0,3);
+    for(const s of recent(k).filter(inRegion)){ if(items.length>=3) break; if(s!==lead&&!items.includes(s)) items.push(s); }
+    if(!items.length) for(const s of recent(k)){ if(items.length>=2) break; if(s!==lead) items.push(s); }
     return `<div class="col ${CLS[k]}"><h3>${u.desks[k]}</h3>`+(items.length?`<ol>`+items.map(s=>`<li><span class="when"><span>${esc(fmtDate(s.d,s.t,s.dl))} · ${esc(s.s)}</span>${sbtn(s)}</span><b>${hl(s)}</b><span class="sum">${esc(T(s)[1])}</span></li>`).join("")+`</ol>`:`<p class="empty">${u.empty}</p>`)+`</div>`;
   }).join("")+`</div>`;
   return h;
@@ -775,6 +801,46 @@ function closeContact(){ document.getElementById("contact").hidden=true; contact
 document.getElementById("ctClose").onclick=closeContact;
 document.getElementById("contact").addEventListener("click",e=>{ if(e.target.id==="contact") closeContact(); });
 document.addEventListener("keydown",e=>{ if(contactOpen&&e.key==="Escape") closeContact(); });
+
+const AP={
+ en:{link:"Get the app",t:"Forseti on your phone",intro:"Add Forseti to your home screen. It opens like an app, full screen, and the latest edition stays readable offline.",ios:"iPhone and iPad (Safari)",iosS:["Tap the Share button at the bottom of Safari.","Choose “Add to Home Screen”.","Tap “Add”."],and:"Android (Chrome)",andS:["Tap the ⋮ menu at the top right.","Choose “Install app” or “Add to Home screen”.","Confirm."],go:"Install Forseti",bar:"Read Forseti like an app",barGo:"Install",done:"Forseti is installed.",close:"Close"},
+ ru:{link:"Приложение",t:"Forseti на телефоне",intro:"Добавьте Forseti на экран «Домой». Он откроется как приложение, на весь экран, а последний выпуск можно читать даже без интернета.",ios:"iPhone и iPad (Safari)",iosS:["Нажмите кнопку «Поделиться» внизу Safari.","Выберите «На экран „Домой“».","Нажмите «Добавить»."],and:"Android (Chrome)",andS:["Нажмите меню ⋮ в правом верхнем углу.","Выберите «Установить приложение» или «Добавить на главный экран».","Подтвердите."],go:"Установить Forseti",bar:"Читайте Forseti как приложение",barGo:"Установить",done:"Forseti установлен.",close:"Закрыть"},
+ fr:{link:"Application",t:"Forseti sur votre téléphone",intro:"Ajoutez Forseti à votre écran d'accueil. Il s'ouvre comme une application, en plein écran, et la dernière édition reste lisible hors ligne.",ios:"iPhone et iPad (Safari)",iosS:["Touchez le bouton Partager en bas de Safari.","Choisissez « Sur l'écran d'accueil ».","Touchez « Ajouter »."],and:"Android (Chrome)",andS:["Touchez le menu ⋮ en haut à droite.","Choisissez « Installer l'application » ou « Ajouter à l'écran d'accueil ».","Confirmez."],go:"Installer Forseti",bar:"Lisez Forseti comme une application",barGo:"Installer",done:"Forseti est installé.",close:"Fermer"},
+ de:{link:"App",t:"Forseti auf dem Handy",intro:"Fügen Sie Forseti zum Startbildschirm hinzu. Es öffnet sich wie eine App im Vollbild, und die letzte Ausgabe bleibt offline lesbar.",ios:"iPhone und iPad (Safari)",iosS:["Tippen Sie unten in Safari auf „Teilen“.","Wählen Sie „Zum Home-Bildschirm“.","Tippen Sie auf „Hinzufügen“."],and:"Android (Chrome)",andS:["Tippen Sie oben rechts auf das Menü ⋮.","Wählen Sie „App installieren“ oder „Zum Startbildschirm hinzufügen“.","Bestätigen Sie."],go:"Forseti installieren",bar:"Forseti wie eine App lesen",barGo:"Installieren",done:"Forseti ist installiert.",close:"Schließen"},
+ es:{link:"App",t:"Forseti en tu móvil",intro:"Añade Forseti a la pantalla de inicio. Se abre como una app, a pantalla completa, y la última edición se puede leer sin conexión.",ios:"iPhone y iPad (Safari)",iosS:["Toca el botón Compartir en la parte inferior de Safari.","Elige «Añadir a pantalla de inicio».","Toca «Añadir»."],and:"Android (Chrome)",andS:["Toca el menú ⋮ arriba a la derecha.","Elige «Instalar aplicación» o «Añadir a pantalla de inicio».","Confirma."],go:"Instalar Forseti",bar:"Lee Forseti como una app",barGo:"Instalar",done:"Forseti está instalado.",close:"Cerrar"},
+ zh:{link:"手机应用",t:"在手机上使用 Forseti",intro:"将 Forseti 添加到主屏幕。它会像应用一样全屏打开，最新一期即使离线也能阅读。",ios:"iPhone 和 iPad（Safari）",iosS:["点按 Safari 底部的“分享”按钮。","选择“添加到主屏幕”。","点按“添加”。"],and:"Android（Chrome）",andS:["点按右上角的 ⋮ 菜单。","选择“安装应用”或“添加到主屏幕”。","确认。"],go:"安装 Forseti",bar:"像应用一样阅读 Forseti",barGo:"安装",done:"Forseti 已安装。",close:"关闭"},
+ ar:{link:"التطبيق",t:"Forseti على هاتفك",intro:"أضف Forseti إلى الشاشة الرئيسية. يفتح كتطبيق بملء الشاشة، ويمكن قراءة آخر إصدار حتى دون اتصال.",ios:"آيفون وآيباد (Safari)",iosS:["اضغط زر المشاركة أسفل Safari.","اختر «إضافة إلى الشاشة الرئيسية».","اضغط «إضافة»."],and:"أندرويد (Chrome)",andS:["اضغط القائمة ⋮ أعلى اليمين.","اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية».","أكّد."],go:"تثبيت Forseti",bar:"اقرأ Forseti كتطبيق",barGo:"تثبيت",done:"تم تثبيت Forseti.",close:"إغلاق"}
+};
+let deferredInstall=null, appOpen=false, appReturn=null;
+const isStandalone=()=>{ try{ return matchMedia("(display-mode: standalone)").matches||navigator.standalone===true }catch(e){ return false } };
+const isIOS=()=>/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+const isMobile=()=>/android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent)||isIOS();
+function renderApp(){ const a=AP[lang]||AP.en;
+  document.getElementById("apTitle").textContent=a.t; document.getElementById("apIntro").textContent=a.intro; document.getElementById("apClose").textContent=a.close;
+  const step=(h,list)=>`<div class="apstep"><h3>${esc(h)}</h3><ol>${list.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div>`;
+  let h=deferredInstall?`<button class="wbtn apinstall" id="apGo">${esc(a.go)}</button>`:"";
+  h+= isIOS()? step(a.ios,a.iosS)+step(a.and,a.andS) : step(a.and,a.andS)+step(a.ios,a.iosS);
+  document.getElementById("apBody").innerHTML=h;
+  const g=document.getElementById("apGo"); if(g) g.onclick=doInstall; }
+async function doInstall(){ if(!deferredInstall){ openApp(); return; } const ev=deferredInstall; deferredInstall=null;
+  try{ ev.prompt(); const r=await ev.userChoice; if(r&&r.outcome==="accepted") toast((AP[lang]||AP.en).done); }catch(e){}
+  hideBar(); if(appOpen) renderApp(); }
+function openApp(){ appReturn=document.activeElement; renderApp(); document.getElementById("appdlg").hidden=false; appOpen=true; document.body.style.overflow="hidden"; setTimeout(()=>document.getElementById("apClose").focus({preventScroll:true}),30); }
+function closeApp(){ document.getElementById("appdlg").hidden=true; appOpen=false; document.body.style.overflow=""; if(appReturn&&appReturn.focus) try{appReturn.focus()}catch(e){} }
+document.getElementById("apClose").onclick=closeApp;
+document.getElementById("appdlg").addEventListener("click",e=>{ if(e.target.id==="appdlg") closeApp(); });
+document.addEventListener("keydown",e=>{ if(appOpen&&e.key==="Escape") closeApp(); });
+function hideBar(){ document.getElementById("apbar").hidden=true; try{ localStorage.setItem("fs-appbar","1") }catch(e){} }
+function renderBar(){ const a=AP[lang]||AP.en; document.getElementById("apbarTxt").textContent=a.bar; document.getElementById("apbarGo").textContent=a.barGo; }
+function maybeBar(){ if(isStandalone()||!isMobile()) return; let seen=null; try{ seen=localStorage.getItem("fs-appbar") }catch(e){ return }
+  if(seen||welcomeOpen||storyOpen) return; renderBar(); document.getElementById("apbar").hidden=false; }
+document.getElementById("apbarGo").onclick=()=>{ if(deferredInstall) doInstall(); else { hideBar(); openApp(); } };
+document.getElementById("apbarX").onclick=hideBar;
+window.addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); deferredInstall=e; if(appOpen) renderApp(); });
+window.addEventListener("appinstalled",()=>{ deferredInstall=null; hideBar(); });
+setTimeout(maybeBar,20000);
+if("serviceWorker" in navigator && (location.protocol==="https:"||location.hostname==="localhost")){
+  window.addEventListener("load",()=>{ navigator.serviceWorker.register("sw.js").catch(()=>{}); }); }
 render(); loadNews(false); boot();
 </script>
 
